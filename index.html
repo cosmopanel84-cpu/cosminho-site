@@ -83,6 +83,9 @@ h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 12px;font-weight:800;letter-spaci
 .preco{background:var(--cartao);border:1px solid var(--acento);border-radius:20px;
   padding:44px;text-align:center;max-width:520px;margin:0 auto}
 .preco .valor{font-size:46px;font-weight:800;color:var(--acento);line-height:1.1;margin:0 0 4px}
+.preco .valor s{font-size:26px;color:var(--apagado);font-weight:600;margin-right:8px;text-decoration-thickness:2px}
+.preco .selo-lancamento{display:inline-block;background:rgba(46,230,197,.12);border:1px solid var(--acento);
+  color:var(--acento);border-radius:999px;padding:6px 16px;font-size:13.5px;font-weight:700;margin:0 0 18px}
 .preco .periodo{color:var(--apagado);margin:0 0 26px}
 .preco ul{list-style:none;padding:0;margin:0 0 30px;text-align:left;display:inline-block}
 .preco li{padding:7px 0 7px 28px;position:relative;color:var(--texto);font-size:15.5px}
@@ -107,9 +110,6 @@ details p{margin:12px 0 0;color:var(--apagado);font-size:15px}
 footer{padding:44px 0;border-top:1px solid var(--borda);color:var(--apagado);font-size:14px;text-align:center}
 footer a{color:var(--apagado)}
 
-/* ---------- aviso de placeholder (SAI antes de publicar) ---------- */
-.pendente{background:#3a2a06;border:1px dashed var(--ambar);color:var(--ambar);
-  border-radius:10px;padding:12px 16px;font-size:14px;margin:0 auto 26px;max-width:620px}
 </style>
 </head>
 <body>
@@ -218,22 +218,17 @@ footer a{color:var(--apagado)}
     <h2>Preço</h2>
     <p class="legenda">Uma assinatura por pessoa. A chave vale em um computador.</p>
 
-    <!-- ⚠️ APAGUE ESTE BLOCO ANTES DE PUBLICAR ⚠️ -->
-    <div class="pendente">
-      <b>Pendente:</b> preencher o valor abaixo e o link de contato mais adiante.
-      Depois apague este aviso amarelo.
-    </div>
-
     <div class="preco">
-      <!-- ⚠️ TROQUE O VALOR AQUI ⚠️ -->
-      <p class="valor">R$ 00</p>
-      <p class="periodo">por mês</p>
+      <p class="selo-lancamento">🚀 Preço de lançamento · primeiros 10 clientes</p>
+      <p class="valor"><s>R$ 39,90</s> R$ 29,90</p>
+      <p class="periodo">por mês · o seu preço nunca sobe</p>
       <ul>
         <li>Painel completo, sem limite de espectadores</li>
         <li>Os três overlays pro OBS</li>
         <li>Scripts do Roblox e guia de instalação</li>
         <li>Atualizações incluídas</li>
-        <li>Suporte direto comigo</li>
+        <li>Suporte direto comigo, no Discord</li>
+        <li>Cancele quando quiser, sem multa</li>
       </ul>
       <div class="acoes">
         <a class="btn btn-forte" id="btnComprar"
