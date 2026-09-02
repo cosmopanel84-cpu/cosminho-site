@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CosmoPanel — sua live do TikTok dentro do seu jogo do Roblox</title>
+<meta name="description" content="Quem comenta o nick aparece dancando no seu jogo do Roblox, ao vivo, com a porcentagem de aura. Presente faz entrar maior e brilhando." />
+
+<!-- Compartilhamento (WhatsApp, Instagram, Discord) -->
+<meta property="og:title" content="CosmoPanel — sua live do TikTok dentro do seu jogo do Roblox" />
+<meta property="og:description" content="Quem comenta o nick aparece dancando no seu jogo, ao vivo. Presente faz entrar maior e brilhando." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://cosminho.store/" />
+<meta name="theme-color" content="#071417" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐊</text></svg>" />
+
+<style>
+/* A mesma paleta do painel: quem baixa reconhece o produto. */
+:root{
+  --fundo:#071417; --fundo2:#0b1e22; --cartao:#0e262b;
+  --acento:#2ee6c5; --verde:#43c65a; --ambar:#ffd23b; --rosa:#ff7ba6; --lima:#57d06a;
+  --texto:#e6f7f4; --apagado:#8fb3ad; --borda:#16353b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--fundo); color:var(--texto);
+  font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  /* o xadrez sutil do painel */
+  background-image:
+    repeating-linear-gradient(45deg,rgba(46,230,197,.035) 0 2px,transparent 2px 22px),
+    repeating-linear-gradient(-45deg,rgba(46,230,197,.035) 0 2px,transparent 2px 22px);
+}
+.env{max-width:1000px;margin:0 auto;padding:0 22px}
+a{color:var(--acento)}
+
+/* ---------- topo ---------- */
+.topo{padding:22px 0;border-bottom:1px solid var(--borda);position:sticky;top:0;
+  background:rgba(7,20,23,.92);z-index:10}
+.topo .env{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.marca{font-weight:800;font-size:20px;letter-spacing:.3px}
+.marca em{color:var(--acento);font-style:normal}
+.topo nav{display:flex;gap:20px;font-size:15px}
+.topo nav a{color:var(--apagado);text-decoration:none}
+.topo nav a:hover{color:var(--texto)}
+
+/* ---------- botoes ---------- */
+.btn{display:inline-block;padding:15px 28px;border-radius:12px;text-decoration:none;
+  font-weight:700;font-size:16px;border:1px solid transparent;transition:transform .12s,filter .12s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-forte{background:linear-gradient(100deg,var(--acento),var(--verde));color:#04231f}
+.btn-leve{background:transparent;border-color:var(--borda);color:var(--texto)}
+
+/* ---------- hero ---------- */
+.hero{padding:88px 0 72px;text-align:center}
+.hero h1{font-size:clamp(32px,5.5vw,52px);line-height:1.12;margin:0 0 20px;font-weight:800;letter-spacing:-.5px}
+.hero h1 span{color:var(--acento)}
+.hero p.sub{font-size:clamp(17px,2.2vw,21px);color:var(--apagado);max-width:660px;margin:0 auto 34px}
+.acoes{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.selo-os{margin-top:18px;font-size:14px;color:var(--apagado)}
+
+/* ---------- secoes ---------- */
+section{padding:66px 0;border-top:1px solid var(--borda)}
+h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 12px;font-weight:800;letter-spacing:-.3px}
+.legenda{color:var(--apagado);margin:0 0 38px;font-size:17px}
+
+/* ---------- passos ---------- */
+.passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.passo{background:var(--cartao);border:1px solid var(--borda);border-radius:16px;padding:26px}
+.passo .n{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  background:var(--acento);color:#04231f;font-weight:800;margin-bottom:14px}
+.passo h3{margin:0 0 8px;font-size:18px}
+.passo p{margin:0;color:var(--apagado);font-size:15px}
+
+/* ---------- recursos ---------- */
+.recursos{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+.rec{background:var(--cartao);border:1px solid var(--borda);border-radius:14px;padding:22px}
+.rec .ic{font-size:26px;margin-bottom:10px}
+.rec h3{margin:0 0 6px;font-size:16.5px}
+.rec p{margin:0;color:var(--apagado);font-size:14.5px}
+
+/* ---------- preco ---------- */
+.preco{background:var(--cartao);border:1px solid var(--acento);border-radius:20px;
+  padding:44px;text-align:center;max-width:520px;margin:0 auto}
+.preco .valor{font-size:46px;font-weight:800;color:var(--acento);line-height:1.1;margin:0 0 4px}
+.preco .periodo{color:var(--apagado);margin:0 0 26px}
+.preco ul{list-style:none;padding:0;margin:0 0 30px;text-align:left;display:inline-block}
+.preco li{padding:7px 0 7px 28px;position:relative;color:var(--texto);font-size:15.5px}
+.preco li::before{content:"✓";position:absolute;left:0;color:var(--lima);font-weight:800}
+
+/* ---------- requisitos ---------- */
+.req{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.req div{background:var(--fundo2);border:1px solid var(--borda);border-radius:12px;padding:18px;font-size:15px}
+.req b{display:block;margin-bottom:4px}
+.req span{color:var(--apagado);font-size:14px}
+
+/* ---------- perguntas ---------- */
+details{background:var(--cartao);border:1px solid var(--borda);border-radius:12px;
+  padding:18px 20px;margin-bottom:12px}
+details summary{cursor:pointer;font-weight:600;font-size:16px;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"+ ";color:var(--acento);font-weight:800}
+details[open] summary::before{content:"− "}
+details p{margin:12px 0 0;color:var(--apagado);font-size:15px}
+
+/* ---------- rodape ---------- */
+footer{padding:44px 0;border-top:1px solid var(--borda);color:var(--apagado);font-size:14px;text-align:center}
+footer a{color:var(--apagado)}
+
+/* ---------- aviso de placeholder (SAI antes de publicar) ---------- */
+.pendente{background:#3a2a06;border:1px dashed var(--ambar);color:var(--ambar);
+  border-radius:10px;padding:12px 16px;font-size:14px;margin:0 auto 26px;max-width:620px}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="env">
+    <div class="marca">🐊 <em>CosmoPanel</em></div>
+    <nav>
+      <a href="#como">Como funciona</a>
+      <a href="#recursos">Recursos</a>
+      <a href="#preco">Preço</a>
+      <a href="#perguntas">Dúvidas</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="env">
+    <h1>Sua live do TikTok<br>dentro do seu <span>jogo do Roblox</span></h1>
+    <p class="sub">
+      Quem comenta o nick aparece dançando na sua transmissão, ao vivo, com a
+      porcentagem de aura. Quem manda presente entra maior e brilhando.
+    </p>
+    <div class="acoes">
+      <a class="btn btn-forte" href="#preco">Quero usar</a>
+      <a class="btn btn-leve" href="#como">Ver como funciona</a>
+    </div>
+    <p class="selo-os">Windows · instalador de um clique · não precisa saber programar</p>
+  </div>
+</div>
+
+<section id="como">
+  <div class="env">
+    <h2>Três passos e está no ar</h2>
+    <p class="legenda">Da instalação à primeira live, sem terminal e sem código.</p>
+    <div class="passos">
+      <div class="passo">
+        <div class="n">1</div>
+        <h3>Instale no seu PC</h3>
+        <p>Baixa o instalador, dá dois cliques e abre pelo menu iniciar, como
+           qualquer programa. Não precisa de Node.js nem de nada extra.</p>
+      </div>
+      <div class="passo">
+        <div class="n">2</div>
+        <h3>Leve os scripts pro seu jogo</h3>
+        <p>Três arquivos, três arrastadas dentro do Roblox Studio. Vem um guia
+           com o passo a passo e onde clicar em cada um.</p>
+      </div>
+      <div class="passo">
+        <div class="n">3</div>
+        <h3>Conecte a live</h3>
+        <p>Cola o seu @ do TikTok, clica em conectar e comece a transmitir. Os
+           avatares começam a aparecer sozinhos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recursos">
+  <div class="env">
+    <h2>O que ele faz</h2>
+    <p class="legenda">Tudo já vem pronto e ajustável pelo painel.</p>
+    <div class="recursos">
+      <div class="rec">
+        <div class="ic">🎁</div>
+        <h3>Presente muda a entrada</h3>
+        <p>Quanto maior o presente, maior o avatar entra — com brilho e mais
+           tempo no palco. E fura a fila de quem só comentou.</p>
+      </div>
+      <div class="rec">
+        <div class="ic">🎥</div>
+        <h3>Câmera automática</h3>
+        <p>Ela acompanha quem acabou de chegar e enquadra sozinha, sem cortar
+           cabeça e sem sobrar chão. No fim do ciclo abre e mostra a formação.</p>
+      </div>
+      <div class="rec">
+        <div class="ic">🏆</div>
+        <h3>Dois placares</h3>
+        <p>Um de aura e outro de quem mais apoiou com presente. Aparecem no
+           painel e nos overlays.</p>
+      </div>
+      <div class="rec">
+        <div class="ic">📺</div>
+        <h3>Overlays pro OBS</h3>
+        <p>Três telas prontas pra colocar por cima da transmissão: ao vivo,
+           ranking de aura e ranking de apoio.</p>
+      </div>
+      <div class="rec">
+        <div class="ic">❤️</div>
+        <h3>Curtida, seguir, compartilhar</h3>
+        <p>Não é só comentário. Cada tipo de interação pode colocar alguém no
+           palco — você decide quais valem.</p>
+      </div>
+      <div class="rec">
+        <div class="ic">⚙️</div>
+        <h3>Você no controle</h3>
+        <p>Ritmo do show, chance de aura, tamanho da formação, tempo de cada
+           avatar, lista de bloqueio. Tudo pelo painel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="preco">
+  <div class="env">
+    <h2>Preço</h2>
+    <p class="legenda">Uma assinatura por pessoa. A chave vale em um computador.</p>
+
+    <!-- ⚠️ APAGUE ESTE BLOCO ANTES DE PUBLICAR ⚠️ -->
+    <div class="pendente">
+      <b>Pendente:</b> preencher o valor abaixo e o link de contato mais adiante.
+      Depois apague este aviso amarelo.
+    </div>
+
+    <div class="preco">
+      <!-- ⚠️ TROQUE O VALOR AQUI ⚠️ -->
+      <p class="valor">R$ 00</p>
+      <p class="periodo">por mês</p>
+      <ul>
+        <li>Painel completo, sem limite de espectadores</li>
+        <li>Os três overlays pro OBS</li>
+        <li>Scripts do Roblox e guia de instalação</li>
+        <li>Atualizações incluídas</li>
+        <li>Suporte direto comigo</li>
+      </ul>
+      <div class="acoes">
+        <!-- ⚠️ TROQUE PELO SEU LINK: wa.me/55DDDNUMERO ou instagram.com/seuperfil ⚠️ -->
+        <a class="btn btn-forte" href="#" id="btnComprar">Falar comigo pra assinar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="baixar">
+  <div class="env" style="text-align:center">
+    <h2>Já é assinante?</h2>
+    <p class="legenda">Baixe o instalador e cole a sua chave quando ele abrir.</p>
+    <!-- ⚠️ TROQUE PELO LINK DO RELEASE quando ele existir ⚠️ -->
+    <a class="btn btn-forte" href="#" id="btnBaixar">⬇️ Baixar o CosmoPanel</a>
+    <p class="selo-os">Windows 10 ou 11 · 64 bits · cerca de 109 MB</p>
+  </div>
+</section>
+
+<section id="requisitos">
+  <div class="env">
+    <h2>O que você precisa ter</h2>
+    <p class="legenda">Nada além do que você já usa pra transmitir.</p>
+    <div class="req">
+      <div><b>Um PC com Windows</b><span>10 ou 11, 64 bits. O painel roda na sua máquina.</span></div>
+      <div><b>Um jogo no Roblox</b><span>Pode ser um jogo novo e vazio — o cenário vem junto.</span></div>
+      <div><b>Conta no TikTok que possa fazer live</b><span>O painel se conecta na sua transmissão.</span></div>
+      <div><b>OBS (opcional)</b><span>Só se quiser usar os overlays por cima da tela.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="perguntas">
+  <div class="env">
+    <h2>Dúvidas</h2>
+    <p class="legenda">As que mais aparecem antes de assinar.</p>
+
+    <details>
+      <summary>Preciso saber programar?</summary>
+      <p>Não. A instalação é um instalador comum do Windows, e no Roblox são três
+         arrastadas com um guia mostrando onde clicar em cada uma.</p>
+    </details>
+    <details>
+      <summary>O painel fica rodando onde?</summary>
+      <p>No seu computador, junto com a live. Ele conversa com o seu jogo do
+         Roblox enquanto você transmite. Fechou o painel, o show para.</p>
+    </details>
+    <details>
+      <summary>A chave vale em quantos computadores?</summary>
+      <p>Um por vez. Se você trocar de PC ou formatar, é só me avisar que eu
+         libero a chave na hora e você ativa no novo.</p>
+    </details>
+    <details>
+      <summary>Funciona com o meu jogo que já existe?</summary>
+      <p>Funciona. Os scripts entram no seu jogo sem mexer no que já está lá.</p>
+    </details>
+    <details>
+      <summary>E se eu parar de pagar?</summary>
+      <p>O painel para de conectar na live e o jogo para de receber avatares. Seus
+         ajustes continuam salvos — voltou a assinar, volta tudo como estava.</p>
+    </details>
+    <details>
+      <summary>Quantas pessoas aparecem ao mesmo tempo?</summary>
+      <p>A formação padrão comporta 48 avatares e você pode mudar esse número. Quem
+         chega entra na frente; quando enche, a câmera abre, mostra todo mundo e
+         recomeça.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="env">
+    <p>CosmoPanel · <a href="https://cosminho.store">cosminho.store</a></p>
+    <p style="opacity:.7;font-size:13px">
+      Não tem vínculo com o TikTok nem com a Roblox Corporation.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
