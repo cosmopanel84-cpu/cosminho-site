@@ -43,6 +43,11 @@ a{color:var(--acento)}
 .topo nav{display:flex;gap:20px;font-size:15px}
 .topo nav a{color:var(--apagado);text-decoration:none}
 .topo nav a:hover{color:var(--texto)}
+/* "Minha conta" nao e' uma ancora a mais: e' o destino de quem JA comprou.
+   A borda separa quem esta lendo a venda de quem ja e' cliente. */
+.topo nav a.conta{color:var(--acento);border:1px solid var(--borda);
+  border-radius:9px;padding:5px 13px;margin-left:4px}
+.topo nav a.conta:hover{color:var(--acento);border-color:var(--acento)}
 
 /* ---------- botoes ---------- */
 .btn{display:inline-block;padding:15px 28px;border-radius:12px;text-decoration:none;
@@ -126,6 +131,15 @@ footer a{color:var(--apagado)}
       <a href="#recursos">Recursos</a>
       <a href="#preco">Preço</a>
       <a href="#perguntas">Dúvidas</a>
+      <!-- Destacado de proposito, e nao mais uma ancora cinza: quem ja comprou
+           volta ao site PARA isto e mais nada. Perdido no meio da pagina de
+           venda, o cliente nao acha e manda mensagem pedindo a chave. -->
+      <!--[[ ".html" no fim de proposito: o site vive em DOIS lugares durante a
+           mudanca (GitHub Pages no cosminho.store, Firebase no .web.app). O
+           Firebase tem cleanUrls e o GitHub Pages nao, entao "/conta" daria
+           404 no dominio de verdade. Assim funciona nos dois — no Firebase ele
+           so' redireciona pra versao sem extensao. ]]-->
+      <a href="/conta.html" class="conta">Minha conta</a>
     </nav>
   </div>
 </header>

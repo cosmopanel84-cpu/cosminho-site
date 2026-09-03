@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Minha conta — CosmoPanel</title>
+<meta name="description" content="Veja sua chave do CosmoPanel, a validade da assinatura e baixe o programa." />
+<!-- Pagina de conta: nao interessa em busca, e link compartilhado dela nao serve pra ninguem. -->
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#071417" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐊</text></svg>" />
+
+<style>
+/* Mesma paleta do site e do painel: a conta tem que parecer o mesmo produto. */
+:root{
+  --fundo:#071417; --fundo2:#0b1e22; --cartao:#0e262b;
+  --acento:#2ee6c5; --verde:#43c65a; --ambar:#ffd23b; --rosa:#ff7ba6;
+  --texto:#e6f7f4; --apagado:#8fb3ad; --borda:#16353b;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--fundo); color:var(--texto);
+  font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background-image:
+    repeating-linear-gradient(45deg,rgba(46,230,197,.035) 0 2px,transparent 2px 22px),
+    repeating-linear-gradient(-45deg,rgba(46,230,197,.035) 0 2px,transparent 2px 22px);
+}
+.env{max-width:760px;margin:0 auto;padding:0 22px}
+a{color:var(--acento)}
+
+.topo{padding:20px 0;border-bottom:1px solid var(--borda)}
+.topo .env{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.marca{font-weight:800;font-size:20px;text-decoration:none;color:var(--texto)}
+.marca em{color:var(--acento);font-style:normal}
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:12px;
+  text-decoration:none;font-weight:700;font-size:15px;border:1px solid transparent;
+  cursor:pointer;font-family:inherit;transition:transform .12s,filter .12s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn:disabled{opacity:.55;cursor:default;transform:none;filter:none}
+.btn-forte{background:linear-gradient(100deg,var(--acento),var(--verde));color:#04231f}
+.btn-leve{background:transparent;border-color:var(--borda);color:var(--texto)}
+.btn-fino{padding:8px 14px;font-size:13px;border-radius:9px}
+
+main{padding:46px 0 80px}
+h1{font-size:clamp(26px,4.4vw,36px);line-height:1.2;margin:0 0 10px;letter-spacing:-.4px}
+.sub{color:var(--apagado);margin:0 0 30px}
+
+.cartao{background:var(--cartao);border:1px solid var(--borda);border-radius:16px;padding:24px;margin-bottom:16px}
+
+/* ---------- entrar ---------- */
+.entrar{text-align:center;padding:40px 24px}
+.entrar .btn{margin:6px}
+.ou{display:flex;align-items:center;gap:14px;color:var(--apagado);font-size:13px;margin:26px 0 18px}
+.ou::before,.ou::after{content:"";flex:1;height:1px;background:var(--borda)}
+input[type=email]{
+  width:100%;padding:13px 15px;border-radius:11px;border:1px solid var(--borda);
+  background:var(--fundo2);color:var(--texto);font:inherit;font-size:15px}
+input[type=email]:focus{outline:none;border-color:var(--acento)}
+.linha-email{display:flex;gap:10px;flex-wrap:wrap}
+.linha-email input{flex:1;min-width:220px}
+
+/* ---------- licenca ---------- */
+.chave{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--fundo2);border:1px solid var(--borda);border-radius:12px;padding:14px 16px;margin:14px 0}
+.chave code{font:600 17px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:1px;color:var(--acento)}
+.selo{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700}
+.selo-ok{background:rgba(67,198,90,.16);color:var(--verde)}
+.selo-nao{background:rgba(255,123,166,.16);color:var(--rosa)}
+.dados{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:18px}
+.dado .rot{font-size:12px;color:var(--apagado);text-transform:uppercase;letter-spacing:.6px}
+.dado .val{font-weight:700;margin-top:3px}
+
+.aviso{border-left:3px solid var(--ambar);background:rgba(255,210,59,.07);
+  padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;color:var(--texto)}
+.aviso.ruim{border-color:var(--rosa);background:rgba(255,123,166,.07)}
+.rodape-conta{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  margin-top:26px;padding-top:20px;border-top:1px solid var(--borda);color:var(--apagado);font-size:14px}
+.escondido{display:none !important}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="env">
+    <a class="marca" href="/">Cosmo<em>Panel</em></a>
+    <a class="btn btn-leve btn-fino" href="/">Voltar ao site</a>
+  </div>
+</header>
+
+<main class="env">
+
+  <!-- carregando: some assim que o Firebase responde quem esta logado -->
+  <div id="carregando" class="cartao" style="text-align:center;color:var(--apagado)">Carregando…</div>
+
+  <!-- ============ DESLOGADO ============ -->
+  <section id="deslogado" class="escondido">
+    <h1>Minha conta</h1>
+    <p class="sub">Entre com o e-mail que você usou na compra para ver sua chave e a validade da assinatura.</p>
+
+    <div class="cartao entrar">
+      <button id="btnGoogle" class="btn btn-forte">Entrar com Google</button>
+
+      <div class="ou">ou receba um link por e-mail</div>
+
+      <div class="linha-email">
+        <input id="campoEmail" type="email" placeholder="seu@email.com" autocomplete="email" />
+        <button id="btnLink" class="btn btn-leve">Mandar link</button>
+      </div>
+      <p style="color:var(--apagado);font-size:13.5px;margin:16px 0 0">
+        Sem senha para criar nem decorar. O link chega no seu e-mail e já entra.
+      </p>
+    </div>
+
+    <div id="recadoEntrar" class="escondido"></div>
+  </section>
+
+  <!-- ============ LOGADO ============ -->
+  <section id="logado" class="escondido">
+    <h1>Minha conta</h1>
+    <p class="sub" id="oiEmail"></p>
+
+    <div id="listaLicencas"></div>
+
+    <div class="rodape-conta">
+      <span id="rodapeEmail"></span>
+      <button id="btnSair" class="btn btn-leve btn-fino">Sair</button>
+    </div>
+  </section>
+
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import {
+  getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut,
+  onAuthStateChanged, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink,
+  setPersistence, browserLocalPersistence,
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+/* A apiKey do Firebase NAO e' segredo: e' um identificador publico do projeto,
+   feito pra ficar na pagina. Quem protege os dados e' o token assinado e a
+   conferencia no servidor de licencas — nunca esta linha. */
+const app = initializeApp({
+  apiKey: "AIzaSyB8GJViElbv89U0_bjU6bPEKFO2w98Eb18",
+  authDomain: "cosminhostore-92a47.firebaseapp.com",
+  projectId: "cosminhostore-92a47",
+  storageBucket: "cosminhostore-92a47.firebasestorage.app",
+  messagingSenderId: "756549890426",
+  appId: "1:756549890426:web:ccb6b7eef394f0563826c3",
+});
+
+const auth = getAuth(app);
+auth.languageCode = "pt-BR";
+
+/* As licencas NAO moram no Firebase. Ele so' responde "quem e' essa pessoa";
+   quem guarda chave, validade e computadores e' este servico, que ja estava
+   em producao antes do login existir. */
+const API = "https://aura-contador.cosmopanel84.deno.net";
+const BAIXAR = "https://github.com/cosmopanel84-cpu/cosmopanel-downloads/releases/latest/download/CosmoPanel-Instalador-1.0.0.exe";
+const DISCORD = "https://discord.gg/cDBDEqu55z";
+
+const $ = (id) => document.getElementById(id);
+const mostrar = (el, sim) => el.classList.toggle("escondido", !sim);
+
+function recado(html, ruim) {
+  const cx = $("recadoEntrar");
+  cx.className = "aviso" + (ruim ? " ruim" : "");
+  cx.innerHTML = html;
+}
+
+/* ---------------- entrar ---------------- */
+
+$("btnGoogle").addEventListener("click", async () => {
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+    await signInWithPopup(auth, new GoogleAuthProvider());
+  } catch (e) {
+    /* Popup bloqueado e' o caso comum no celular e em quem usa bloqueador —
+       nao e' erro do usuario, entao em vez de reclamar a gente tenta o outro
+       caminho, que abre na propria aba. */
+    if (String(e.code).includes("popup")) {
+      try {
+        await signInWithRedirect(auth, new GoogleAuthProvider());
+        return;
+      } catch { /* cai no recado abaixo */ }
+    }
+    recado("Não consegui entrar com o Google: " + (e.message || e), true);
+  }
+});
+
+const CHAVE_EMAIL = "cosmo:email-do-link";
+
+$("btnLink").addEventListener("click", async () => {
+  const email = $("campoEmail").value.trim();
+  if (!email || !email.includes("@")) {
+    recado("Escreva um e-mail válido para eu mandar o link.", true);
+    return;
+  }
+  $("btnLink").disabled = true;
+  try {
+    await sendSignInLinkToEmail(auth, email, {
+      /* ".html" porque o link volta pro dominio de onde saiu, e o site roda em
+         dois hosts durante a mudanca: no GitHub Pages "/conta" nao existe (nao
+         ha cleanUrls la'), e o cliente cairia num 404 depois de clicar no
+         proprio link de entrada — o pior lugar possivel pra um 404. */
+      url: location.origin + "/conta.html",
+      handleCodeInApp: true,
+    });
+    /* Guardar o e-mail evita perguntar de novo quando o link voltar. Se a
+       pessoa abrir o link noutro aparelho, o campo some junto e ai' sim a
+       gente pergunta — por isso o pedido continua existindo la' embaixo. */
+    localStorage.setItem(CHAVE_EMAIL, email);
+    recado("Link enviado para <b>" + email + "</b>. Abra seu e-mail e clique nele. Se não achar, olhe o spam.");
+  } catch (e) {
+    recado("Não consegui mandar o link: " + (e.message || e), true);
+    $("btnLink").disabled = false;
+  }
+});
+
+/* Volta do link do e-mail. */
+if (isSignInWithEmailLink(auth, location.href)) {
+  let email = localStorage.getItem(CHAVE_EMAIL);
+  if (!email) email = prompt("Confirme o e-mail para onde você mandou o link:") || "";
+  if (email) {
+    try {
+      await signInWithEmailLink(auth, email, location.href);
+      localStorage.removeItem(CHAVE_EMAIL);
+      // Tira o token da barra de endereco. `location.pathname` em vez de um
+      // caminho fixo: assim serve nos dois hosts sem inventar uma URL que
+      // pode nao existir naquele.
+      history.replaceState({}, "", location.pathname);
+    } catch (e) {
+      mostrar($("carregando"), false);
+      mostrar($("deslogado"), true);
+      recado("Esse link não valeu — eles expiram e só servem uma vez. Peça outro.", true);
+    }
+  }
+}
+
+$("btnSair").addEventListener("click", () => signOut(auth));
+
+/* ---------------- buscar as licencas ---------------- */
+
+function escapar(s) {
+  return String(s).replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
+function dataBonita(iso) {
+  if (!iso) return "sem prazo";
+  const [a, m, d] = iso.split("-");
+  return `${d}/${m}/${a}`;
+}
+
+function cartaoLicenca(l) {
+  const selo = l.ativa
+    ? '<span class="selo selo-ok">ativa</span>'
+    : `<span class="selo selo-nao">${escapar(l.status)}</span>`;
+
+  /* O motivo vem do servidor em uma palavra ("vencida", "bloqueada"). Uma
+     palavra nao diz o que fazer, e e' justo nessa hora que a pessoa precisa
+     saber. */
+  const explica = {
+    vencida: "Sua assinatura passou da validade. Renove no Discord que eu libero na hora.",
+    bloqueada: "Essa chave está bloqueada. Fale comigo no Discord para entender.",
+    "validade invalida": "A data dessa chave está com problema. Me chama no Discord que eu arrumo.",
+  }[l.status];
+
+  return `
+    <div class="cartao">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <strong style="font-size:18px">${escapar(l.nome || "Assinatura CosmoPanel")}</strong>
+        ${selo}
+      </div>
+
+      <div class="chave">
+        <code>${escapar(l.key)}</code>
+        <button class="btn btn-leve btn-fino copiar" data-chave="${escapar(l.key)}">Copiar</button>
+      </div>
+
+      ${explica ? `<div class="aviso ruim">${explica}</div>` : ""}
+
+      <div class="dados">
+        <div class="dado"><div class="rot">Válida até</div><div class="val">${dataBonita(l.validade)}</div></div>
+        <div class="dado"><div class="rot">Computadores</div><div class="val">${l.pcsUsados} de ${l.pcsMax}</div></div>
+      </div>
+
+      ${l.ativa ? `<div style="margin-top:22px"><a class="btn btn-forte" href="${BAIXAR}">Baixar o CosmoPanel</a></div>` : ""}
+    </div>`;
+}
+
+async function carregarLicencas(user) {
+  const cx = $("listaLicencas");
+  cx.innerHTML = '<div class="cartao" style="text-align:center;color:var(--apagado)">Procurando sua assinatura…</div>';
+
+  let r;
+  try {
+    const token = await user.getIdToken();
+    r = await fetch(API + "/minha-licenca", { headers: { Authorization: "Bearer " + token } });
+  } catch {
+    cx.innerHTML = `<div class="aviso ruim">Não consegui falar com o servidor agora.
+      Pode ser sua internet. Recarregue a página em um minuto.</div>`;
+    return;
+  }
+
+  if (r.status === 401) {
+    /* Token velho: o do Firebase dura uma hora. Uma nova tentativa forcada
+       resolve sem a pessoa precisar sair e entrar de novo. */
+    try {
+      const token = await user.getIdToken(true);
+      r = await fetch(API + "/minha-licenca", { headers: { Authorization: "Bearer " + token } });
+    } catch { /* cai no tratamento abaixo */ }
+  }
+
+  if (!r || !r.ok) {
+    cx.innerHTML = `<div class="aviso ruim">Deu um problema aqui do meu lado (código ${r ? r.status : "?"}).
+      Me chama no <a href="${DISCORD}">Discord</a> que eu resolvo.</div>`;
+    return;
+  }
+
+  const dados = await r.json();
+  const lista = dados.licencas || [];
+
+  if (lista.length === 0) {
+    /* Estado vazio bem escrito vale muito: quem compra e nao ve a chave acha
+       que perdeu o dinheiro. Dizer o motivo mais provavel (e-mail diferente)
+       resolve a maioria dos casos sem virar mensagem pra mim. */
+    cx.innerHTML = `
+      <div class="cartao">
+        <strong style="font-size:18px">Nenhuma assinatura neste e-mail</strong>
+        <p style="color:var(--apagado)">
+          Você entrou como <b>${escapar(dados.email)}</b>, e não achei nenhuma chave ligada a ele.
+        </p>
+        <p style="color:var(--apagado)">
+          Quase sempre é isso: a compra foi feita com <b>outro e-mail</b>. Tente sair e entrar
+          com o e-mail da compra. Se ainda assim não aparecer, me chama no
+          <a href="${DISCORD}">Discord</a> com o comprovante que eu ligo sua chave a esta conta.
+        </p>
+        <div style="margin-top:18px"><a class="btn btn-leve" href="${DISCORD}">Falar comigo no Discord</a></div>
+      </div>`;
+    return;
+  }
+
+  cx.innerHTML = lista.map(cartaoLicenca).join("");
+
+  cx.querySelectorAll(".copiar").forEach((b) => {
+    b.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(b.dataset.chave);
+        b.textContent = "Copiado!";
+        setTimeout(() => (b.textContent = "Copiar"), 1800);
+      } catch {
+        b.textContent = "Copie na mão";
+      }
+    });
+  });
+}
+
+/* ---------------- quem esta logado ---------------- */
+
+onAuthStateChanged(auth, (user) => {
+  mostrar($("carregando"), false);
+  mostrar($("deslogado"), !user);
+  mostrar($("logado"), !!user);
+  if (user) {
+    $("oiEmail").textContent = "Sua assinatura do CosmoPanel.";
+    $("rodapeEmail").textContent = user.email || "";
+    carregarLicencas(user);
+  }
+});
+</script>
+
+</body>
+</html>
