@@ -68,6 +68,12 @@ a{color:var(--acento)}
   border-radius:12px;padding:14px 18px;text-align:left}
 .aviso-windows b{color:var(--texto)}
 
+/* ---------- vitrine (o print do jogo) ---------- */
+.vitrine{margin:44px auto 0;max-width:980px}
+.vitrine img{width:100%;height:auto;display:block;border-radius:16px;
+  border:1px solid var(--borda);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.vitrine figcaption{margin-top:12px;font-size:14px;color:var(--apagado)}
+
 /* ---------- secoes ---------- */
 section{padding:66px 0;border-top:1px solid var(--borda)}
 h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 12px;font-weight:800;letter-spacing:-.3px}
@@ -157,6 +163,18 @@ footer a{color:var(--apagado)}
       <a class="btn btn-leve" href="#como">Ver como funciona</a>
     </div>
     <p class="selo-os">Windows · instalador de um clique · não precisa saber programar</p>
+
+    <!--[[ A pagina vendia um produto VISUAL sem mostrar nada dele.
+         Captura real do jogo rodando, nao arte: aparece o avatar de quem
+         comentou, o nick, e a porcentagem — em verde e em vermelho, pra
+         quem chega entender os dois resultados sem ler uma linha.
+         `loading="lazy"` nao entra aqui: e' a primeira coisa que a pessoa
+         precisa ver, e carregar depois seria carregar tarde. ]]-->
+    <figure class="vitrine">
+      <img src="/jogo.png" width="1180" height="310"
+           alt="Quatro avatares do Roblox dançando em fila na grama. Sobre dois deles, o nick e a porcentagem de aura: um em vermelho com 32% e SEM AURA, outro em verde com 63% e AURA." />
+      <figcaption>O que aparece na sua live: quem comentou, dançando, com a aura dele.</figcaption>
+    </figure>
   </div>
 </div>
 
@@ -266,7 +284,7 @@ footer a{color:var(--apagado)}
          (O caminho /releases/latest/download/ exige o nome exato do arquivo, e o
           electron-builder poe a versao no nome.) -->
     <a class="btn btn-forte" id="btnBaixar"
-       href="https://github.com/cosmopanel84-cpu/cosmopanel-downloads/releases/latest/download/CosmoPanel-Instalador-1.0.0.exe">⬇️ Baixar o CosmoPanel 1.0.0</a>
+       href="https://github.com/cosmopanel84-cpu/cosmopanel-downloads/releases/latest/download/CosmoPanel-Instalador-1.0.1.exe">⬇️ Baixar o CosmoPanel 1.0.1</a>
     <p class="selo-os">Windows 10 ou 11 · 64 bits · cerca de 109 MB</p>
     <p class="aviso-windows">
       O Windows pode avisar que o instalador é de origem desconhecida. <b>Não é
