@@ -89,6 +89,17 @@ p{margin:0 0 18px}
 .vitrine img{border-radius:14px;border:1px solid var(--linha)}
 .vitrine figcaption{margin-top:14px;font-size:14.5px;color:var(--apagado);text-align:center}
 
+/*[[ O trecho da live. EM PE', e estreito.
+     O video e' a transmissao como o espectador ve: vertical, com os avisos
+     por cima. Deitado, seria outra coisa. E estreito de proposito — foi
+     filmado do monitor com celular, entao nitidez nao e' o que ele tem pra
+     dar; o que ele tem e' movimento e a aura mudando na cabeca das pessoas.
+     Grande, a diferenca de definicao pra imagem do topo viraria o assunto. ]]*/
+.prova{margin:56px auto 0;max-width:340px}
+.prova video{display:block;width:100%;height:auto;border-radius:14px;
+  border:1px solid var(--linha);background:var(--fundo2)}
+.prova figcaption{margin-top:14px;font-size:14.5px;color:var(--apagado);text-align:center}
+
 /* ---------- sequencia numerada ---------- */
 .momento{display:grid;grid-template-columns:44px 1fr;gap:0 22px;
   padding-bottom:38px;position:relative}
