@@ -10,9 +10,22 @@
 <meta property="og:description" content="Quem comenta um nick aparece dançando no seu jogo, ao vivo, com a aura em cima. Presente garante aura alta." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://cosminho.store/" />
-<meta property="og:image" content="https://cosminho.store/jogo-2.jpg" />
-<meta name="theme-color" content="#08161a" />
+<!--[[ O cartao de compartilhamento e' o BANNER da marca, nao a captura do jogo.
+     Quando alguem cola o link no Discord ou no WhatsApp, o recorte de 1,91:1
+     transformava a captura numa faixa de grama sem contexto. O banner foi
+     desenhado nessa proporcao, com o nome e a promessa dentro — ele sobrevive
+     ao recorte porque foi feito pra ele. ]]-->
+<meta property="og:image" content="https://cosminho.store/banner-1.jpg" />
+<meta name="theme-color" content="#00110e" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐊</text></svg>" />
+
+<!--[[ Kanit 800 italico: da familia do lettering do logo, e a unica fonte que
+     a pagina baixa. `display=swap` pra o texto aparecer na hora com a fonte do
+     sistema e trocar quando chegar — titulo invisivel por meio segundo e' pior
+     que titulo com a fonte errada por meio segundo. ]]-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,600;1,700;1,800&display=swap" />
 
 <link rel="stylesheet" href="/estilo.css" />
 </head>
@@ -23,7 +36,10 @@
     <!--[[ A marca do topo e' a da LOJA, nao a do produto. O site vende
          CosmoPanel hoje e vai vender outras coisas depois; se o cabecalho
          disser "CosmoPanel", cada produto novo obriga a mexer nele. ]]-->
-    <a class="marca" href="/">🐊 Cosminho<span> Store</span></a>
+    <a class="marca" href="/">
+      <img src="/logo-1.png" width="42" height="42" alt="" />
+      Cosminho<span> Store</span>
+    </a>
     <nav>
       <a class="some" href="#acontece">Como funciona</a>
       <a class="some" href="#duvidas">Dúvidas</a>
@@ -148,12 +164,19 @@
       </div>
     </div>
 
-    <!--[[ O trecho da live, DEPOIS dos cinco passos.
+    <!--[[ A live INTEIRA, DEPOIS dos cinco passos.
          Quem acabou de ler o que acontece e' exatamente quem quer ver
          acontecendo. E em pe', no formato da transmissao — porque e' esse o
          enquadramento que o espectador ve no celular dele, com os overlays
          por cima. Deitado, a pagina estaria mostrando uma coisa que nao
          existe.
+
+         O video vai do COMECO ao fim de proposito. Uma versao anterior
+         mostrava so' o pedaco do jogo, e isso jogava fora a metade que mais
+         importa: os primeiros segundos, com o chat do TikTok e os
+         comentarios chegando. Sem eles a pagina mostra um jogo bonito; com
+         eles mostra a LIGACAO entre o comentario e o boneco, que e' o
+         produto. A camera passa de um pro outro na propria gravacao.
 
          `poster` nao e' enfeite: em conexao ruim, ou quando o navegador
          recusa autoplay, e' ele que aparece no lugar de um retangulo preto.
@@ -162,9 +185,9 @@
     <figure class="prova">
       <video src="/live-2.mp4" poster="/live-2.jpg"
              autoplay muted loop playsinline preload="metadata"
-             width="380" height="610"
-             aria-label="Trecho de uma live: avatares do Roblox dançando na grama, cada um com o nick e a aura em cima — Zenia_26111 com 92% em verde e marcianito2308 com 37% em vermelho — e os avisos da transmissão por cima."></video>
-      <figcaption>Trecho de uma live, do jeito que o espectador vê.</figcaption>
+             width="400" height="722"
+             aria-label="Uma live acontecendo: primeiro o chat do TikTok com os comentários chegando, depois a transmissão, onde os avatares do Roblox dançam na grama com o nick e a porcentagem de aura em cima da cabeça."></video>
+      <figcaption>Uma live rodando: os comentários chegando, e o que sai na tela.</figcaption>
     </figure>
   </div>
 </section>
