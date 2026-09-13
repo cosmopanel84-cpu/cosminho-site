@@ -28,6 +28,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,600;1,700;1,800&display=swap" />
 
 <link rel="stylesheet" href="/estilo.css" />
+
+<!--[[ Marca a raiz como "tem JavaScript" ANTES do CSS pintar qualquer coisa.
+     Os blocos que surgem ao rolar nascem com opacity:0, e quem devolve a
+     visibilidade e' o script la' embaixo. Se o JS estiver bloqueado ou der
+     erro, ninguem devolve — e o site inteiro fica invisivel, que e' a pior
+     falha possivel numa pagina de vendas.
+
+     Com esta linha, o `opacity:0` so' existe quando ha' JavaScript pra
+     desfaze-lo. Ela fica no <head> e nao no fim do body de proposito: no fim,
+     os blocos apareceriam visiveis e sumiriam um quadro depois. ]]-->
+<script>document.documentElement.className += ' js';</script>
 </head>
 <body>
 
@@ -53,10 +64,14 @@
 <div class="heroi">
   <div class="env">
     <h1>Sua live do TikTok<br>dentro do seu <em>jogo do Roblox</em></h1>
+    <!--[[ UMA frase, e nao um paragrafo.
+         No celular a versao anterior ocupava quatro linhas de 20px antes de
+         chegar no botao — um muro entre o titulo e a acao. O que sobra aqui e'
+         o minimo que explica o produto: comentario -> avatar -> aura. O resto
+         da historia esta logo abaixo, nos cinco passos, pra quem quiser. ]]-->
     <p class="sub">
-      Alguém comenta um nick do Roblox no chat da sua live. O avatar dessa
-      pessoa entra no seu jogo dançando, com a porcentagem de aura dela em
-      cima da cabeça — e todo mundo assistindo vê acontecer.
+      Quem comenta um nick no chat vira um avatar dançando no seu jogo, com a
+      aura em cima da cabeça.
     </p>
     <div class="acoes">
       <a class="btn btn-forte" href="https://discord.gg/cDBDEqu55z">Falar comigo no Discord</a>
@@ -65,73 +80,102 @@
     <p class="selo-os">Windows · instalador de um clique · não precisa saber programar</p>
   </div>
 
-  <figure class="vitrine">
-    <!--[[ JPEG e nao PNG: a mesma captura pesa 719 KB em PNG e 90 em JPEG,
-         sem diferenca visivel — nem nos nicks, que sao a parte que mais
-         sofre com compressao. Numa imagem que carrega ANTES de tudo, 629 KB
-         a menos e' a diferenca entre a pessoa ver o produto e desistir no
-         carregamento. ]]-->
-    <img src="/jogo-2.jpg" width="1184" height="338"
-         alt="Quatro avatares do Roblox parados na grama, lado a lado. Sobre cada um aparece o nick, o @ de quem comentou na live e a porcentagem de aura: o primeiro em verde com 71% e AURA, os outros três em vermelho com 41%, 19% e 48% e SEM AURA." />
-    <figcaption>Captura real do jogo rodando. Cada boneco é alguém que comentou na live.</figcaption>
-  </figure>
+  <!--[[ OS DOIS NO TOPO, cada um no formato que ele e'.
+
+       A tentacao era trocar a foto pelo video: movimento prende mais que
+       parado. So' que o video foi gravado EM PE', e o topo e' uma faixa
+       larga. Vertical ali vira uma coluna alta que empurra a proposta pra
+       baixo da dobra, com preto sobrando dos lados no computador — e topo e'
+       onde menos se pode obrigar alguem a rolar.
+
+       Os dois juntos resolvem sem abrir mao de nada:
+
+         · A FOTO carrega primeiro (90 KB contra 756) e ja' entrega os quatro
+           nicks legiveis. E' ela que explica em um olhar.
+         · O VIDEO entra do lado, estreito, e da o movimento — e so' ele
+           mostra o chat virando boneco.
+
+       No celular eles empilham: a foto larga em cima, o video embaixo. ]]-->
+  <div class="palco-topo">
+    <figure class="vitrine surge">
+      <!--[[ JPEG e nao PNG: a mesma captura pesa 719 KB em PNG e 90 em JPEG,
+           sem diferenca visivel — nem nos nicks, que sao a parte que mais
+           sofre com compressao. Numa imagem que carrega ANTES de tudo, 629 KB
+           a menos e' a diferenca entre a pessoa ver o produto e desistir no
+           carregamento. ]]-->
+      <img src="/jogo-2.jpg" width="1184" height="338"
+           alt="Quatro avatares do Roblox parados na grama, lado a lado. Sobre cada um aparece o nick, o @ de quem comentou na live e a porcentagem de aura: o primeiro em verde com 71% e AURA, os outros três em vermelho com 41%, 19% e 48% e SEM AURA." />
+      <figcaption>Captura real do jogo. Cada boneco é alguém que comentou.</figcaption>
+    </figure>
+
+    <!--[[ `preload="none"` aqui, e nao "metadata" como la' embaixo: no topo
+         ele disputa banda com a imagem, que precisa pintar primeiro. O poster
+         segura o lugar ate' o video comecar. ]]-->
+    <figure class="prova-topo surge">
+      <video src="/live-2.mp4" poster="/live-2.jpg"
+             autoplay muted loop playsinline preload="none"
+             width="400" height="722"
+             aria-label="Uma live acontecendo: primeiro o chat do TikTok com os comentários chegando, depois a transmissão, onde os avatares do Roblox dançam na grama com o nick e a porcentagem de aura em cima da cabeça."></video>
+      <figcaption>Uma live rodando, do começo ao fim.</figcaption>
+    </figure>
+  </div>
 </div>
 
 <!-- ==================== O QUE ACONTECE NA LIVE ==================== -->
 <section id="acontece">
   <div class="env">
-    <p class="rotulo">O que acontece na sua live</p>
-    <h2>Do comentário ao boneco na tela</h2>
-    <p class="legenda">
-      Este é o ciclo inteiro, do jeito que o seu espectador vê. Ele não precisa
-      instalar nada, entrar no seu jogo nem ter conta no Roblox — só comentar.
+    <p class="rotulo surge">O que acontece na sua live</p>
+    <h2 class="surge">Do comentário ao boneco na tela</h2>
+    <p class="legenda surge">
+      O ciclo inteiro, do jeito que o seu espectador vê. Ele não instala nada,
+      não entra no seu jogo e nem precisa ter conta no Roblox — só comenta.
     </p>
 
-    <div class="momento">
+    <div class="momento surge">
       <div class="n">1</div>
       <div>
         <h3>Alguém comenta um nick</h3>
         <p>
           Qualquer pessoa assistindo escreve um nome de usuário do Roblox no
-          chat da live. Pode ser o dela, o de um amigo, o de um jogador
-          famoso. O painel lê o comentário na hora.
+          chat. Pode ser o dela, o de um amigo, o de um jogador famoso. O
+          painel lê na hora.
         </p>
       </div>
     </div>
 
-    <div class="momento">
+    <div class="momento surge">
       <div class="n">2</div>
       <div>
         <h3>O avatar entra dançando</h3>
         <p>
-          O CosmoPanel busca o avatar de verdade dessa pessoa no Roblox — com
-          a roupa, os acessórios e o rosto que ela montou — e coloca ele no
-          palco do seu jogo, dançando junto com os outros. A câmera vai até
-          ele sozinha e fica nele até o próximo chegar.
+          O painel busca o avatar de verdade dessa pessoa — com a roupa, os
+          acessórios e o rosto que ela montou — e coloca ele no palco,
+          dançando junto com os outros. A câmera vai até ele sozinha e fica
+          nele até o próximo chegar.
         </p>
       </div>
     </div>
 
-    <div class="momento">
+    <div class="momento surge">
       <div class="n">3</div>
       <div>
         <h3>A aura aparece em cima da cabeça</h3>
         <p>
-          Junto com o boneco aparece uma plaquinha com o nick, o @ de quem
-          comentou, e uma porcentagem de <b>aura</b> — o número que a pessoa
-          comentou pra descobrir.
+          Junto com o boneco aparece o nick, o @ de quem comentou e uma
+          porcentagem de <b>aura</b> — o número que a pessoa comentou pra
+          descobrir.
         </p>
         <p>
           <span class="aura-verde">Verde é ter aura.</span>
           <span class="aura-vermelha">Vermelho é não ter.</span>
-          Quem só comenta quase sempre tira vermelho: é sorteio, e ele é
-          puxado pra baixo de propósito. Mas de vez em quando sai um 90, um
-          100 — e é esse que faz a próxima pessoa querer tentar.
+          Quem só comenta quase sempre tira vermelho: o sorteio é puxado pra
+          baixo de propósito. Mas de vez em quando sai um 90, um 100 — e é
+          esse que faz a próxima pessoa querer tentar.
         </p>
       </div>
     </div>
 
-    <div class="momento">
+    <div class="momento surge">
       <div class="n">4</div>
       <div>
         <h3>Quem manda presente não depende de sorte</h3>
@@ -143,87 +187,62 @@
         <div class="destaque">
           <p>
             É aqui que a live vira dinheiro. Comentar é grátis e quase sempre
-            dá vermelho. Mandar presente é a única forma de <b>garantir</b> o
-            verde — e todo mundo assistindo vê a diferença acontecer na tela,
-            na hora.
+            dá vermelho. Presente é a única forma de <b>garantir</b> o verde —
+            e a live inteira vê a diferença acontecer na hora.
           </p>
         </div>
       </div>
     </div>
 
-    <div class="momento">
+    <div class="momento surge">
       <div class="n">5</div>
       <div>
         <h3>O placar mantém a disputa viva</h3>
         <p>
-          Dois placares aparecem por cima da transmissão: quem tirou as
-          maiores auras da sessão, e quem mais apoiou com presente. Eles dão
-          motivo pra pessoa voltar, comentar de novo e superar quem está na
-          frente.
+          Dois placares aparecem por cima da transmissão: as maiores auras da
+          sessão, e quem mais apoiou com presente. É o motivo pra voltar,
+          comentar de novo e passar quem está na frente.
         </p>
       </div>
     </div>
 
-    <!--[[ A live INTEIRA, DEPOIS dos cinco passos.
-         Quem acabou de ler o que acontece e' exatamente quem quer ver
-         acontecendo. E em pe', no formato da transmissao — porque e' esse o
-         enquadramento que o espectador ve no celular dele, com os overlays
-         por cima. Deitado, a pagina estaria mostrando uma coisa que nao
-         existe.
-
-         O video vai do COMECO ao fim de proposito. Uma versao anterior
-         mostrava so' o pedaco do jogo, e isso jogava fora a metade que mais
-         importa: os primeiros segundos, com o chat do TikTok e os
-         comentarios chegando. Sem eles a pagina mostra um jogo bonito; com
-         eles mostra a LIGACAO entre o comentario e o boneco, que e' o
-         produto. A camera passa de um pro outro na propria gravacao.
-
-         `poster` nao e' enfeite: em conexao ruim, ou quando o navegador
-         recusa autoplay, e' ele que aparece no lugar de um retangulo preto.
-         Sem audio de proposito: video que fala sozinho numa pagina de vendas
-         faz a pessoa fechar a aba. ]]-->
-    <figure class="prova">
-      <video src="/live-2.mp4" poster="/live-2.jpg"
-             autoplay muted loop playsinline preload="metadata"
-             width="400" height="722"
-             aria-label="Uma live acontecendo: primeiro o chat do TikTok com os comentários chegando, depois a transmissão, onde os avatares do Roblox dançam na grama com o nick e a porcentagem de aura em cima da cabeça."></video>
-      <figcaption>Uma live rodando: os comentários chegando, e o que sai na tela.</figcaption>
-    </figure>
+    <!-- O video subiu pro topo, ao lado da foto. Repetir ele aqui seria
+         mostrar a mesma coisa duas vezes na mesma pagina. -->
   </div>
 </section>
 
 <!-- ======================= O QUE VEM JUNTO ======================= -->
 <section id="recursos">
   <div class="env">
-    <p class="rotulo">O que vem junto</p>
-    <h2>Tudo pronto pra ligar e transmitir</h2>
-    <p class="legenda">
-      Você não monta nada do zero. O cenário, os scripts, os overlays e o
-      painel já vêm configurados — e tudo é ajustável depois.
+    <p class="rotulo surge">O que vem junto</p>
+    <h2 class="surge">Tudo pronto pra ligar e transmitir</h2>
+    <p class="legenda surge">
+      Você não monta nada do zero. Cenário, scripts, overlays e painel já vêm
+      configurados — e tudo é ajustável depois.
     </p>
 
     <div class="recursos">
-      <div>
+      <div class="surge">
         <h3>Câmera automática</h3>
-        <p>Acompanha quem acabou de chegar e enquadra sozinha. Presente grande ganha corte de cena, com a câmera orbitando quem pagou.</p>
+        <p>Enquadra sozinha quem acabou de chegar. Presente grande ganha corte de cena, com a câmera orbitando quem pagou.</p>
       </div>
-      <div>
+      <div class="surge">
         <h3>Três overlays pro OBS</h3>
         <p>Telas prontas pra pôr por cima da transmissão: quem está no palco agora, o placar de aura e o de apoio.</p>
       </div>
-      <div>
+      <div class="surge">
         <h3>Não é só comentário</h3>
         <p>Curtida, seguir e compartilhar também podem colocar alguém no palco. Você escolhe o que vale.</p>
       </div>
-      <div>
+      <div class="surge">
         <h3>Você no controle</h3>
         <p>Ritmo do show, chance de aura, tamanho da formação, tempo de cada avatar, o que cada presente vale. Tudo pelo painel, durante a live.</p>
       </div>
-      <div>
+      <div class="surge">
         <h3>Cenário e dança inclusos</h3>
-        <p>O palco, a iluminação, os efeitos e as animações vêm junto. Se você já tem um jogo, os scripts entram sem mexer no que existe.</p>
+        <p>Palco, iluminação, efeitos e animações vêm junto. Se você já tem um jogo, os scripts entram sem mexer no que existe.</p>
       </div>
-      <div>
+      <div class="surge">
         <h3>Atualiza sozinho</h3>
         <p>Versão nova baixa em segundo plano e instala quando você fecha o programa — nunca no meio de uma transmissão.</p>
       </div>
@@ -234,34 +253,34 @@
 <!-- ========================= INSTALAÇÃO ========================= -->
 <section id="instalar">
   <div class="env">
-    <p class="rotulo">Instalação</p>
-    <h2>Três passos, sem terminal e sem código</h2>
-    <p class="legenda">
+    <p class="rotulo surge">Instalação</p>
+    <h2 class="surge">Três passos, sem terminal e sem código</h2>
+    <p class="legenda surge">
       Da instalação à primeira live. Vem um guia com o passo a passo e onde
       clicar em cada tela.
     </p>
 
-    <div class="momento">
+    <div class="momento surge">
       <div class="n">1</div>
       <div>
         <h3>Instale no seu PC</h3>
-        <p>Baixa o instalador, dá dois cliques e abre pelo menu iniciar, como qualquer programa. Não precisa de Node.js nem de nada extra.</p>
+        <p>Baixa o instalador, dá dois cliques e abre pelo menu iniciar, como qualquer programa.</p>
       </div>
     </div>
 
-    <div class="momento">
+    <div class="momento surge">
       <div class="n">2</div>
       <div>
-        <h3>Leve os scripts pro seu jogo</h3>
-        <p>Três arquivos, três arrastadas dentro do Roblox Studio. Pode ser um jogo novo e vazio — o cenário vem junto.</p>
+        <h3>Cole a chave e abra o jogo</h3>
+        <p>O palco já está publicado e pronto. Cola a chave que eu te mando, aperta <b>Abrir o jogo</b> e ele abre no seu Roblox — sem criar nada, sem Studio. Cada pessoa cai no próprio servidor.</p>
       </div>
     </div>
 
-    <div class="momento">
+    <div class="momento surge">
       <div class="n">3</div>
       <div>
-        <h3>Cole a sua chave e conecte</h3>
-        <p>Abre o painel, cola a chave que eu te mando, escreve o seu @ do TikTok e clica em conectar. Com a live no ar, o primeiro comentário já coloca alguém no palco.</p>
+        <h3>Conecte a sua live</h3>
+        <p>Escreve o seu @ do TikTok e clica em conectar. Com a live no ar, o primeiro comentário já coloca alguém no palco.</p>
       </div>
     </div>
   </div>
@@ -270,15 +289,15 @@
 <!-- ========================= REQUISITOS ========================= -->
 <section id="requisitos">
   <div class="env">
-    <p class="rotulo">Antes de começar</p>
-    <h2>O que você precisa ter</h2>
-    <p class="legenda">Nada além disso.</p>
+    <p class="rotulo surge">Antes de começar</p>
+    <h2 class="surge">O que você precisa ter</h2>
+    <p class="legenda surge">Nada além disso.</p>
 
     <div class="req">
-      <div><b>Um PC com Windows</b><span>10 ou 11, 64 bits. O painel roda na sua máquina.</span></div>
-      <div><b>Um jogo no Roblox</b><span>Pode ser novo e vazio — o cenário vem junto.</span></div>
-      <div><b>Conta no TikTok que faça live</b><span>O painel se conecta na sua transmissão.</span></div>
-      <div><b>OBS (opcional)</b><span>Só se quiser os overlays por cima da tela.</span></div>
+      <div class="surge"><b>Um PC com Windows</b><span>10 ou 11, 64 bits. O painel roda na sua máquina.</span></div>
+      <div class="surge"><b>Um jogo no Roblox</b><span>Serve um novo e vazio.</span></div>
+      <div class="surge"><b>Conta no TikTok que faça live</b><span>O painel se conecta na sua transmissão.</span></div>
+      <div class="surge"><b>OBS (opcional)</b><span>Só se quiser os overlays por cima da tela.</span></div>
     </div>
   </div>
 </section>
@@ -286,85 +305,91 @@
 <!-- =========================== DÚVIDAS =========================== -->
 <section id="duvidas">
   <div class="env">
-    <p class="rotulo">Dúvidas</p>
-    <h2>O que costumam me perguntar</h2>
-    <p class="legenda">Se a sua não estiver aqui, é só me chamar no Discord.</p>
+    <p class="rotulo surge">Dúvidas</p>
+    <h2 class="surge">O que costumam me perguntar</h2>
+    <p class="legenda surge">Se a sua não estiver aqui, é só me chamar no Discord.</p>
 
-    <details>
-      <summary>Preciso saber programar?</summary>
-      <p>Não. A instalação é um instalador comum do Windows, e no Roblox são três arquivos arrastados pra dentro do Studio. O guia mostra onde clicar em cada passo.</p>
-    </details>
-    <details>
-      <summary>Quem assiste precisa entrar no jogo?</summary>
-      <p>Não, e é isso que faz funcionar. A pessoa só comenta na live. Ela nem precisa ter o Roblox instalado — o avatar que aparece é buscado pelo nick que ela escreveu.</p>
-    </details>
-    <details>
-      <summary>Funciona com o meu jogo que já existe?</summary>
-      <p>Funciona. Os scripts entram no seu jogo sem mexer no que já está lá. Se você não tem jogo nenhum, também serve: o cenário do palco vem junto e roda num jogo vazio.</p>
-    </details>
-    <details>
-      <summary>O painel fica rodando onde?</summary>
-      <p>No seu computador, junto com a live. Ele conversa com o seu jogo do Roblox e com a sua transmissão do TikTok ao mesmo tempo. Nada roda em servidor de terceiro.</p>
-    </details>
-    <details>
-      <summary>Preciso estar ao vivo pra funcionar?</summary>
-      <p>Sim. O painel se conecta na sua transmissão do TikTok enquanto ela está no ar. Fora da live não há comentário pra ler.</p>
-    </details>
-    <details>
-      <summary>Quantas pessoas aparecem ao mesmo tempo?</summary>
-      <p>A formação padrão comporta 48 avatares, e você pode mudar esse número. Quem chega entra na frente; quando enche, a câmera mostra a multidão inteira e o palco recomeça.</p>
-    </details>
-    <details>
-      <summary>A chave vale em quantos computadores?</summary>
-      <p>Um por vez. Se você trocar de PC ou formatar, é só me avisar no Discord que eu libero na hora.</p>
-    </details>
-    <details>
-      <summary>Isso vai me fazer ganhar dinheiro?</summary>
-      <p>Ele não cria audiência do nada — isso continua sendo seu trabalho. O que ele faz é dar motivo pra quem já está assistindo interagir: comentar pra ver o próprio avatar, e mandar presente pra garantir a aura alta. Mais comentário também ajuda a live a ser mostrada pra mais gente.</p>
-    </details>
-    <details>
-      <summary>O Windows mostrou um aviso ao instalar</summary>
-      <p>É o SmartScreen, e acontece com todo programa novo que ainda não tem certificado de assinatura — não é vírus. Clique em <b>Mais informações</b> e depois em <b>Executar assim mesmo</b>.</p>
-    </details>
+    <div class="surge">
+      <details>
+        <summary>Preciso saber programar?</summary>
+        <p>Não, e nem mexer no Roblox Studio. A instalação é um instalador comum do Windows, e o palco já vem publicado — você aperta um botão no painel e ele abre.</p>
+      </details>
+      <details>
+        <summary>Quem assiste precisa entrar no jogo?</summary>
+        <p>Não, e é isso que faz funcionar. A pessoa só comenta na live. Ela nem precisa ter o Roblox instalado — o avatar que aparece é buscado pelo nick que ela escreveu.</p>
+      </details>
+      <details>
+        <summary>Posso usar no meu próprio jogo?</summary>
+        <p>Pode. O padrão é usar o palco que já vem pronto, mas se você quiser o seu, os scripts vêm no pacote e entram sem mexer no que já está lá. Dá pra trocar entre os dois no painel, quando quiser.</p>
+      </details>
+      <details>
+        <summary>O painel fica rodando onde?</summary>
+        <p>No seu computador, junto com a live. Ele conversa com o seu jogo do Roblox e com a sua transmissão do TikTok ao mesmo tempo. Nada roda em servidor de terceiro.</p>
+      </details>
+      <details>
+        <summary>Preciso estar ao vivo pra funcionar?</summary>
+        <p>Sim. O painel se conecta na sua transmissão enquanto ela está no ar. Fora da live não há comentário pra ler.</p>
+      </details>
+      <details>
+        <summary>Quantas pessoas aparecem ao mesmo tempo?</summary>
+        <p>A formação padrão comporta 48 avatares, e você pode mudar esse número. Quem chega entra na frente; quando enche, a câmera mostra a multidão inteira e o palco recomeça.</p>
+      </details>
+      <details>
+        <summary>A chave vale em quantos computadores?</summary>
+        <p>Um por vez. Se você trocar de PC ou formatar, é só me avisar no Discord que eu libero na hora.</p>
+      </details>
+      <details>
+        <summary>Isso vai me fazer ganhar dinheiro?</summary>
+        <p>Ele não cria audiência do nada — isso continua sendo seu trabalho. O que ele faz é dar motivo pra quem já está assistindo interagir: comentar pra ver o próprio avatar, e mandar presente pra garantir a aura alta. Mais comentário também ajuda a live a ser mostrada pra mais gente.</p>
+      </details>
+      <details>
+        <summary>O Windows mostrou um aviso ao instalar</summary>
+        <p>É o SmartScreen, e acontece com todo programa novo que ainda não tem certificado de assinatura — não é vírus. Clique em <b>Mais informações</b> e depois em <b>Executar assim mesmo</b>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ========================== FECHAMENTO ========================== -->
+<!--[[ A chamada final vem ANTES da area de quem ja' comprou.
+     Antes era o contrario, e a secao "ja' e' cliente" cortava o funil bem no
+     fim: quem estava decidindo batia num bloco de suporte, com botao de
+     download que ele nao pode usar, e o convite pro Discord so' aparecia
+     depois. Vender primeiro, atender depois. ]]-->
+<section id="comprar" class="fechamento">
+  <div class="env">
+    <p class="rotulo surge">Como conseguir</p>
+    <h2 class="surge">A venda é comigo, no Discord</h2>
+    <p class="legenda surge">
+      Não tem carrinho nem checkout. Você entra no servidor, fala comigo
+      direto, eu tiro suas dúvidas, combino o valor e te mando a chave na
+      hora. Depois, se precisar de qualquer coisa — trocar de PC, ajustar o
+      jogo, entender um erro — é comigo também, no mesmo lugar.
+    </p>
+    <div class="acoes surge">
+      <a class="btn btn-forte" href="https://discord.gg/cDBDEqu55z">Entrar no Discord</a>
+    </div>
   </div>
 </section>
 
 <!-- ========================= JÁ É CLIENTE ========================= -->
 <section id="cliente">
   <div class="env">
-    <p class="rotulo">Já é cliente</p>
-    <h2>Baixar e ver a minha chave</h2>
-    <p class="legenda">
+    <p class="rotulo surge">Já é cliente</p>
+    <h2 class="surge">Baixar e ver a minha chave</h2>
+    <p class="legenda surge">
       Perdeu a chave ou trocou de computador? Entre na sua conta com o e-mail
       da compra e ela está lá.
     </p>
-    <div class="acoes" style="justify-content:flex-start">
+    <div class="acoes surge" style="justify-content:flex-start">
       <a class="btn btn-forte" href="https://github.com/cosmopanel84-cpu/cosmopanel-downloads/releases/latest/download/CosmoPanel-Instalador.exe">Baixar o CosmoPanel</a>
       <a class="btn btn-leve" href="/conta.html">Ver minha chave</a>
     </div>
-    <p class="aviso">
+    <p class="aviso surge">
       Windows 10 ou 11 · 64 bits · cerca de 109 MB.<br>
-      Ao instalar, o Windows pode mostrar um aviso azul do <b>SmartScreen</b>.
-      Acontece com todo programa novo sem certificado de assinatura. Clique em
-      <b>Mais informações</b> e depois em <b>Executar assim mesmo</b>.
+      Se o Windows mostrar o aviso azul do <b>SmartScreen</b>, é o de sempre com
+      programa novo — <a href="#duvidas">tem a explicação nas dúvidas</a>.
     </p>
-  </div>
-</section>
-
-<!-- ========================== FECHAMENTO ========================== -->
-<section id="comprar" class="fechamento">
-  <div class="env">
-    <p class="rotulo">Como conseguir</p>
-    <h2>A venda é comigo, no Discord</h2>
-    <p class="legenda">
-      Não tem carrinho nem checkout. Você entra no servidor, fala comigo
-      direto, eu tiro suas dúvidas, combino o valor com você e te mando a
-      chave na hora. Se depois precisar de qualquer coisa — trocar de PC,
-      ajustar o jogo, entender um erro — é comigo também, no mesmo lugar.
-    </p>
-    <div class="acoes">
-      <a class="btn btn-forte" href="https://discord.gg/cDBDEqu55z">Entrar no Discord</a>
-    </div>
   </div>
 </section>
 
@@ -375,6 +400,8 @@
     Não é afiliado ao Roblox nem ao TikTok.
   </div>
 </footer>
+
+<script src="/interacoes.js" defer></script>
 
 </body>
 </html>
