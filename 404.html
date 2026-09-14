@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Página não encontrada — Cosminho Store</title>
+<meta name="description" content="Esse endereço não existe mais. Volte para o início da Cosminho Store." />
+<!-- Pagina de erro nao vai pra busca: quem procura o site tem que achar o site. -->
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#00110e" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐊</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,600;1,700;1,800&display=swap" />
+
+<!--[[ CAMINHOS ABSOLUTOS, e aqui isso e' obrigatorio e nao estilo.
+
+     O GitHub Pages serve esta pagina pra QUALQUER endereco que nao existe —
+     inclusive /a/b/c/coisa. Com caminho relativo, o CSS de uma URL funda
+     viraria /a/b/c/estilo.css e a pagina de erro apareceria sem estilo
+     nenhum: texto preto no branco, no meio de um site verde escuro. Quem
+     visse aquilo concluiria que o site inteiro quebrou. ]]-->
+<link rel="stylesheet" href="/estilo.css" />
+<script>document.documentElement.className += ' js';</script>
+</head>
+<body>
+
+<!--[[ ESTA PAGINA RENDERIZA SEM JAVASCRIPT. E' regra, nao preferencia.
+
+     Nenhum elemento aqui usa a classe `surge` — a que nasce com opacity:0 e
+     espera o interacoes.js devolver a visibilidade.
+
+     O motivo e' uma cicatriz: o interacoes.js ficou meses fora do repositorio
+     sem ninguem notar, e como o resto do site depende dele pra revelar o
+     conteudo, a pagina publicada estava EM BRANCO abaixo do titulo. Local
+     funcionava, porque local le' a pasta.
+
+     Uma pagina de erro e' o pior lugar possivel pra repetir isso: ela aparece
+     justamente quando ja' tem alguma coisa errada, e se ela tambem falhar o
+     visitante nao tem mais nenhum caminho de volta. Entao ela nao depende de
+     script pra mostrar o que tem. O interacoes.js entra so' pela ondinha do
+     clique — se sumir de novo, aqui nao muda nada. ]]-->
+
+<header class="topo">
+  <div class="env largo">
+    <a class="marca" href="/">
+      <img src="/logo-1.png" width="42" height="42" alt="" />
+      Cosminho<span> Store</span>
+    </a>
+    <nav>
+      <a href="/produtos.html">Produtos</a>
+      <a class="some" href="https://discord.gg/zDEZcjJRAp">Discord</a>
+      <a href="/conta.html">Minha conta</a>
+    </nav>
+  </div>
+</header>
+
+<div class="heroi">
+  <div class="env">
+    <h1>Essa página não existe</h1>
+    <!--[[ Sem "Erro 404" grande na cara. O numero nao diz nada pra quem nao e'
+         programador, e assusta: parece que o problema e' grave, ou que foi a
+         pessoa que fez algo errado. O que ela precisa saber e' que o site esta'
+         de pe' e pra onde ir. ]]-->
+    <p class="sub">
+      O endereço que você abriu não leva a lugar nenhum — pode ser um link
+      antigo, ou um erro de digitação. O site está no ar normalmente.
+    </p>
+    <div class="acoes">
+      <a class="btn btn-forte" href="/">Ir para o início</a>
+      <a class="btn btn-leve" href="/produtos.html">Ver os produtos</a>
+    </div>
+    <p class="selo-os">
+      Se você chegou aqui por um link que eu te mandei, me avise no
+      <a href="https://discord.gg/zDEZcjJRAp">Discord</a> que eu conserto.
+    </p>
+  </div>
+</div>
+
+<footer>
+  <div class="env">
+    Cosminho Store · <a href="https://discord.gg/zDEZcjJRAp">Discord</a> ·
+    <a href="/conta.html">Minha conta</a><br>
+    Não é afiliado ao Roblox nem ao TikTok.
+  </div>
+</footer>
+
+<script src="/interacoes.js" defer></script>
+
+</body>
+</html>
