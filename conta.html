@@ -10,6 +10,22 @@
 <meta name="theme-color" content="#00110e" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐊</text></svg>" />
 
+<!--[[ Contagem de visita, anonima. Inline de proposito — explicacao no
+     index.html.
+
+     Aqui ela conta MAIS que nas outras: quem abre a area do cliente e' quem
+     ja' comprou, entao a linha desta pagina e' o sinal de que gente esta'
+     usando o que pagou — e nao so' visitando a loja. ]]-->
+<script>
+try {
+  var _de = new URLSearchParams(location.search).get('de') || '';
+  navigator.sendBeacon(
+    'https://aura-contador.cosmopanel84.deno.net/visita',
+    JSON.stringify({ p: location.pathname, de: _de, ref: document.referrer })
+  );
+} catch (e) { /* sem contagem hoje; a pagina segue igual */ }
+</script>
+
 <style>
 /* Mesma paleta do site e do painel: a conta tem que parecer o mesmo produto. */
 :root{

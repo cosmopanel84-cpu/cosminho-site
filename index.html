@@ -39,6 +39,36 @@
      desfaze-lo. Ela fica no <head> e nao no fim do body de proposito: no fim,
      os blocos apareceriam visiveis e sumiriam um quadro depois. ]]-->
 <script>document.documentElement.className += ' js';</script>
+
+<!--[[ CONTAGEM DE VISITA — anonima, e INLINE de propósito.
+
+     O site não media NADA até hoje: nem GitHub Pages, nem Analytics, nem
+     pixel. O número de visitas nunca existiu. Contador só vale pelo
+     histórico, e histórico não se recupera — por isso entrou antes de a
+     divulgação começar.
+
+     POR QUE INLINE, e não junto do interacoes.js: aquele arquivo ficou fora
+     do repositório sem ninguém notar e derrubou o site inteiro. Um contador
+     que mora num arquivo separado é um contador que um dia para de contar em
+     silêncio — e ninguém percebe, porque a página continua bonita. Estas seis
+     linhas não podem dar 404.
+
+     NÃO GUARDA NADA DE PESSOA: sem cookie, sem identificador, sem IP. Só
+     soma "esta página foi aberta mais uma vez hoje", a etiqueta `?de=` e o
+     domínio de quem mandou. É por isso que não há aviso de cookie a dar.
+
+     `sendBeacon` e não `fetch`: ele entrega mesmo se a pessoa fechar a aba no
+     mesmo instante, e nunca segura o carregamento. Dentro de try/catch porque
+     medir não pode, em hipótese alguma, quebrar a página que está medindo. ]]-->
+<script>
+try {
+  var _de = new URLSearchParams(location.search).get('de') || '';
+  navigator.sendBeacon(
+    'https://aura-contador.cosmopanel84.deno.net/visita',
+    JSON.stringify({ p: location.pathname, de: _de, ref: document.referrer })
+  );
+} catch (e) { /* sem contagem hoje; a pagina segue igual */ }
+</script>
 </head>
 <body>
 

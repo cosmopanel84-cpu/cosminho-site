@@ -17,6 +17,18 @@
 <link rel="stylesheet" href="/estilo.css" />
 <!-- Marca a raiz antes do CSS pintar. Ver a explicacao no index.html. -->
 <script>document.documentElement.className += ' js';</script>
+
+<!-- Contagem de visita, anonima. Inline de proposito — a explicacao inteira
+     esta no index.html. -->
+<script>
+try {
+  var _de = new URLSearchParams(location.search).get('de') || '';
+  navigator.sendBeacon(
+    'https://aura-contador.cosmopanel84.deno.net/visita',
+    JSON.stringify({ p: location.pathname, de: _de, ref: document.referrer })
+  );
+} catch (e) { /* sem contagem hoje; a pagina segue igual */ }
+</script>
 </head>
 <body>
 
