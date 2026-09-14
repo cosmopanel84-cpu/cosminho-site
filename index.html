@@ -83,40 +83,28 @@
     <p class="selo-os">Windows · instalador de um clique · não precisa saber programar</p>
   </div>
 
-  <!--[[ OS DOIS NO TOPO, cada um no formato que ele e'.
+  <!--[[ SO' O VIDEO NO TOPO.
 
-       A tentacao era trocar a foto pelo video: movimento prende mais que
-       parado. So' que o video foi gravado EM PE', e o topo e' uma faixa
-       larga. Vertical ali vira uma coluna alta que empurra a proposta pra
-       baixo da dobra, com preto sobrando dos lados no computador — e topo e'
-       onde menos se pode obrigar alguem a rolar.
+       Aqui tinha uma foto larga ao lado dele, e a foto SAIU. O motivo foi
+       repeticao: ela mostrava avatares na grama com placa verde e vermelha, e
+       a foto do presente (momento 4) mostra a mesma cena com a informacao que
+       importa de verdade — o tamanho. Duas fotos do mesmo assunto na mesma
+       pagina nao convencem o dobro; ensinam a passar os olhos.
 
-       Os dois juntos resolvem sem abrir mao de nada:
+       O video ganha do parado em tudo, menos em uma coisa: ele foi gravado EM
+       PE'. Vertical no topo vira coluna alta e empurra os botoes pra baixo da
+       dobra. Por isso ele NAO cresce a vontade — fica limitado e centrado,
+       largo o bastante pra ser o assunto e curto o bastante pra proposta e
+       botao continuarem na primeira tela.
 
-         · A FOTO carrega primeiro (90 KB contra 756) e ja' entrega os quatro
-           nicks legiveis. E' ela que explica em um olhar.
-         · O VIDEO entra do lado, estreito, e da o movimento — e so' ele
-           mostra o chat virando boneco.
-
-       No celular eles empilham: a foto larga em cima, o video embaixo. ]]-->
+       `preload="metadata"` agora, e nao mais "none": o "none" existia porque
+       ele disputava banda com a foto, que precisava pintar primeiro. Sem a
+       foto, nao ha com quem disputar — e o poster (23 KB) segura o lugar ate'
+       o video comecar. ]]-->
   <div class="palco-topo">
-    <figure class="vitrine surge">
-      <!--[[ JPEG e nao PNG: a mesma captura pesa 719 KB em PNG e 90 em JPEG,
-           sem diferenca visivel — nem nos nicks, que sao a parte que mais
-           sofre com compressao. Numa imagem que carrega ANTES de tudo, 629 KB
-           a menos e' a diferenca entre a pessoa ver o produto e desistir no
-           carregamento. ]]-->
-      <img src="/jogo-2.jpg" width="1184" height="338"
-           alt="Quatro avatares do Roblox parados na grama, lado a lado. Sobre cada um aparece o nick, o @ de quem comentou na live e a porcentagem de aura: o primeiro em verde com 71% e AURA, os outros três em vermelho com 41%, 19% e 48% e SEM AURA." />
-      <figcaption>Captura real do jogo. Cada boneco é alguém que comentou.</figcaption>
-    </figure>
-
-    <!--[[ `preload="none"` aqui, e nao "metadata" como la' embaixo: no topo
-         ele disputa banda com a imagem, que precisa pintar primeiro. O poster
-         segura o lugar ate' o video comecar. ]]-->
     <figure class="prova-topo surge">
       <video src="/live-2.mp4" poster="/live-2.jpg"
-             autoplay muted loop playsinline preload="none"
+             autoplay muted loop playsinline preload="metadata"
              width="400" height="722"
              aria-label="Uma live acontecendo: primeiro o chat do TikTok com os comentários chegando, depois a transmissão, onde os avatares do Roblox dançam na grama com o nick e a porcentagem de aura em cima da cabeça."></video>
       <figcaption>Uma live rodando, do começo ao fim.</figcaption>
@@ -175,6 +163,13 @@
           baixo de propósito. Mas de vez em quando sai um 90, um 100 — e é
           esse que faz a próxima pessoa querer tentar.
         </p>
+        <!--[[ Aqui teve uma segunda foto de formação e ela SAIU.
+             Mostrava avatares na grama com placa verde e vermelha — que é
+             exatamente o que a foto do topo já mostra. Duas fotos da mesma
+             coisa não convencem o dobro: a segunda só custa carregamento e
+             ensina a pessoa a passar os olhos pelas imagens sem olhar.
+             A foto do presente, no momento 4, ficou — ela mostra o que
+             nenhuma outra mostra. ]]-->
       </div>
     </div>
 
@@ -187,6 +182,16 @@
           efeito e som, e <b>a aura positiva é garantida</b>. Quanto maior o
           presente, mais alta ela vem — os maiores encostam nos 100%.
         </p>
+        <!--[[ Esta foto fecha a frase de cima. "Entra maior" e' a afirmacao
+             que mais vende e a mais dificil de acreditar em texto — o leitor
+             imagina um pouquinho maior. A imagem mostra o tamanho de verdade,
+             e mostra ao lado dos normais: gigante sozinho nao impressiona,
+             porque nao ha com o que comparar. ]]-->
+        <figure class="prova-momento">
+          <img src="/jogo-3.jpg" width="1000" height="627" loading="lazy" decoding="async"
+               alt="Quatro avatares do Roblox na grama. O do meio, de quem mandou presente, é muitas vezes maior que os outros e tem 89% de aura em verde. Ao lado dele, três de tamanho normal: um com 81% em verde e dois em vermelho, com 17% e 13%." />
+          <figcaption>O do meio mandou presente. É esse o tamanho que a live inteira vê.</figcaption>
+        </figure>
         <div class="destaque">
           <p>
             É aqui que a live vira dinheiro. Comentar é grátis e quase sempre
@@ -209,8 +214,8 @@
       </div>
     </div>
 
-    <!-- O video subiu pro topo, ao lado da foto. Repetir ele aqui seria
-         mostrar a mesma coisa duas vezes na mesma pagina. -->
+    <!-- O video mora no topo (hoje sozinho, sem a foto que ficava ao lado).
+         Repetir ele aqui seria mostrar a mesma coisa duas vezes na pagina. -->
   </div>
 </section>
 

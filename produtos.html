@@ -15,6 +15,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,600;1,700;1,800&display=swap" />
 <link rel="stylesheet" href="/estilo.css" />
+<!-- Marca a raiz antes do CSS pintar. Ver a explicacao no index.html. -->
+<script>document.documentElement.className += ' js';</script>
 </head>
 <body>
 
@@ -26,7 +28,7 @@
     </a>
     <nav>
       <a href="/produtos.html" aria-current="page">Produtos</a>
-      <a class="some" href="https://discord.gg/cDBDEqu55z">Discord</a>
+      <a class="some" href="https://discord.gg/zDEZcjJRAp">Discord</a>
       <a href="/conta.html">Minha conta</a>
     </nav>
   </div>
@@ -46,10 +48,17 @@
   <div class="env largo">
     <div class="produtos">
 
-      <a class="produto" href="/">
+      <a class="produto surge" href="/">
         <div class="capa">
-          <img src="/jogo-2.jpg" width="1184" height="338"
-               alt="Quatro avatares do Roblox em fila na grama, com o nick e a porcentagem de aura sobre a cabeça de cada um." />
+          <!--[[ Capa PROPRIA, recortada em 16/7 pra bater com a `.capa`.
+               Apontava pra /jogo-2.jpg, que saiu do site — e capa quebrada
+               aqui vira buraco cinza no cartao, que e' o pior lugar possivel:
+               a vitrine e' a primeira coisa que quem chega pela loja ve.
+               Nao reaproveitei a /jogo-3.jpg do index: ela e' 1,59:1, e o
+               `object-fit:cover` deste cartao cortaria 95px em cima — comendo
+               justo o nome do gigante. ]]-->
+          <img src="/capa-1.jpg" width="800" height="350"
+               alt="Avatares do Roblox dançando na grama. O do meio, de quem mandou presente, é muito maior que os outros três, e sobre cada um aparece o nick e a porcentagem de aura." />
         </div>
         <div class="corpo">
           <h3>CosmoPanel</h3>
@@ -70,7 +79,7 @@
            parece desonesta. O tracejado diz "aqui vai vir coisa" sem fingir
            que ja' veio. Quando existir, e' so' trocar este bloco por um
            <a class="produto"> igual ao de cima — a grade nao muda. ]]-->
-      <div class="produto vazio">
+      <div class="produto vazio surge">
         <h3>Mais coisas vindo</h3>
         <p>
           Estou preparando os próximos. Entre no Discord para saber primeiro
@@ -92,18 +101,20 @@
       suporte é comigo também — no mesmo lugar.
     </p>
     <div class="acoes">
-      <a class="btn btn-forte" href="https://discord.gg/cDBDEqu55z">Entrar no Discord</a>
+      <a class="btn btn-forte" href="https://discord.gg/zDEZcjJRAp">Entrar no Discord</a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="env">
-    Cosminho Store · <a href="https://discord.gg/cDBDEqu55z">Discord</a> ·
+    Cosminho Store · <a href="https://discord.gg/zDEZcjJRAp">Discord</a> ·
     <a href="/conta.html">Minha conta</a><br>
     Não é afiliado ao Roblox nem ao TikTok.
   </div>
 </footer>
+
+<script src="/interacoes.js" defer></script>
 
 </body>
 </html>

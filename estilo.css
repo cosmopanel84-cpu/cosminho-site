@@ -151,14 +151,65 @@ p{margin:0 0 18px}
    neon. E' o unico lugar da pagina onde o verde aparece em tamanho grande. */
 .heroi h1 em{font-style:italic;color:var(--acento);
   text-shadow:0 0 26px rgba(0,233,137,.55)}
-.heroi .sub{font-size:20px;color:var(--apagado);max-width:60ch;margin:0 auto 34px}
+.heroi .sub{font-size:20px;color:var(--apagado);max-width:54ch;margin:0 auto 34px}
+
+/*[[ No celular o topo inteiro encolhe, e nao so' o texto.
+     Medido num telefone de 390px: o subtitulo em 20px ocupava quatro linhas, e
+     junto com o respiro de desktop empurrava o botao pra fora da primeira
+     tela. Titulo, texto e espacamento cedem juntos — o que tem que caber na
+     primeira olhada e' titulo, uma frase e o botao. ]]*/
+@media (max-width:600px){
+  .heroi{padding:60px 0 48px}
+  .heroi h1{margin-bottom:18px}
+  .heroi .sub{font-size:17.5px;line-height:1.6;margin-bottom:28px}
+  .legenda{font-size:17.5px;margin-bottom:34px}
+  section{padding:72px 0}
+  .btn{padding:14px 24px;font-size:15px}
+}
 .acoes{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .selo-os{margin-top:22px;font-size:14px;color:var(--apagado)}
 
-.vitrine{margin:60px auto 0;max-width:1120px;padding:0 24px}
-.vitrine img{border-radius:16px;border:1px solid var(--linha-viva);
-  box-shadow:0 0 50px rgba(0,233,137,.12)}
-.vitrine figcaption{margin-top:14px;font-size:14.5px;color:var(--apagado);text-align:center}
+/*[[ O PALCO DO TOPO: so' o video, centrado.
+
+     Era uma grade de duas colunas — captura larga a' esquerda, video estreito
+     (190px) a' direita, alinhados pelo rodape. A foto saiu por repeticao, e a
+     grade foi junto: uma coluna de 190px sobrando no meio de 1120px deixaria o
+     video parecendo miniatura perdida.
+
+     O TETO DE LARGURA E' O PONTO DELICADO. O video e' 0,55:1 — cada pixel de
+     largura custa quase dois de altura. Em 300px ele ja' come 542px de altura,
+     e tudo que vier depois (proposta, botoes) desce junto. Deixar ele crescer
+     "pra aproveitar a tela" empurraria o botao de teste pra fora da primeira
+     tela no notebook, que e' onde menos se pode obrigar alguem a rolar.
+
+     Entao 300px e' escolha, nao sobra: grande o bastante pra ser o assunto do
+     topo, contido o bastante pra proposta e botao continuarem visiveis. ]]*/
+.palco-topo{
+  max-width:1120px;margin:60px auto 0;padding:0 24px;
+  display:flex;justify-content:center;
+}
+.palco-topo > figure{margin:0;max-width:300px;width:100%}
+
+/*[[ Saiu daqui a `.vitrine` — a moldura da captura larga do topo. Ela nao e'
+     usada por nenhum HTML desde que a foto saiu do palco. Regra de CSS orfa
+     nao quebra pagina nenhuma, e por isso mesmo fica: um dia alguem copia ela
+     achando que esta' em uso. ]]*/
+.prova-topo video{display:block;width:100%;height:auto;border-radius:14px;
+  border:1px solid var(--linha-viva);background:var(--fundo2);
+  box-shadow:0 0 34px rgba(0,233,137,.18)}
+.prova-topo figcaption{margin-top:14px;font-size:13.5px;color:var(--apagado);text-align:center}
+
+/*[[ Havia aqui um `min-height` nas legendas do topo. Ele existia pra alinhar
+     DUAS legendas lado a lado (a do video quebrava em duas linhas, a da foto
+     em uma, e a diferenca de 22px desencontrava as midias). Com uma figura so'
+     nao ha o que alinhar — e o que sobrava virava espaco morto embaixo da
+     legenda. ]]*/
+
+/*[[ No celular ele encolhe um pouco: 300px numa tela de 375 encosta nas
+     bordas, e a legenda embaixo fica sem respiro lateral. ]]*/
+@media (max-width:860px){
+  .palco-topo > figure{max-width:260px}
+}
 
 /*[[ O trecho da live. EM PE', e estreito.
      O video e' a transmissao como o espectador ve: vertical, com os avisos
@@ -170,6 +221,18 @@ p{margin:0 0 18px}
   border:1px solid var(--linha-viva);background:var(--fundo2);
   box-shadow:0 0 40px rgba(0,233,137,.16)}
 .prova figcaption{margin-top:14px;font-size:14.5px;color:var(--apagado);text-align:center}
+
+/*[[ A foto que PROVA o que o paragrafo acabou de afirmar.
+     Diferente da .vitrine (que abre a pagina e vende) e da .prova (estreita,
+     feita pro video vertical): esta e' larga, mora DENTRO do momento e existe
+     pra fechar uma frase especifica. O texto diz "entra maior"; a foto mostra
+     o maior. Afirmacao e prova na mesma altura da tela, sem rolar.
+     `loading=lazy` no HTML: as duas estao bem abaixo da dobra, e o que pinta
+     primeiro continua sendo a vitrine la' em cima. ]]*/
+.prova-momento{margin:18px 0 0;max-width:100%}
+.prova-momento img{display:block;width:100%;height:auto;border-radius:14px;
+  border:1px solid var(--linha-viva);box-shadow:0 0 34px rgba(0,233,137,.12)}
+.prova-momento figcaption{margin-top:10px;font-size:13.5px;color:var(--apagado)}
 
 /* ---------- sequencia numerada ---------- */
 .momento{display:grid;grid-template-columns:48px 1fr;gap:0 22px;
@@ -265,10 +328,92 @@ footer a:hover{color:var(--acento)}
   font-size:15px;color:var(--apagado);text-align:left;max-width:60ch}
 .aviso b{color:var(--texto);font-weight:600}
 
+/* ============================ MOVIMENTO ============================ */
+
+/*[[ SURGIR AO ROLAR.
+     O bloco nasce 18px abaixo e transparente; o JS poe `.visivel` na primeira
+     vez que ele entra na tela. Deslocamento pequeno de proposito: animacao de
+     entrada que percorre meia tela chama atencao pra si mesma, e o assunto
+     aqui e' o texto, nao o efeito.
+
+     `will-change` so' nos que ainda vao animar — deixar a dica ligada pra
+     sempre obriga o navegador a manter uma camada por bloco em memoria. Some
+     junto com o estado inicial. ]]*/
+.surge{
+  opacity:0;transform:translateY(18px);
+  transition:opacity .55s ease,transform .55s cubic-bezier(.22,.8,.3,1);
+  will-change:opacity,transform;
+}
+.surge.visivel{opacity:1;transform:none;will-change:auto}
+
+/* Nas grades, cada cartao entra um tiquinho depois do anterior. Cinquenta
+   milissegundos: o suficiente pra ler como sequencia, pouco pra ninguem
+   esperar. O teto no 6 evita que o ultimo de uma lista longa demore. */
+.recursos > .surge:nth-child(2){transition-delay:.05s}
+.recursos > .surge:nth-child(3){transition-delay:.1s}
+.recursos > .surge:nth-child(4){transition-delay:.15s}
+.recursos > .surge:nth-child(5){transition-delay:.2s}
+.recursos > .surge:nth-child(6){transition-delay:.25s}
+.req > .surge:nth-child(2){transition-delay:.06s}
+.req > .surge:nth-child(3){transition-delay:.12s}
+.req > .surge:nth-child(4){transition-delay:.18s}
+
+/*[[ A ONDA DO CLIQUE.
+     Um circulo que abre do ponto exato onde o dedo tocou e some. E' o unico
+     sinal de "recebi" antes de a pagina responder — e em link que leva pra
+     fora, como o do Discord, esse meio segundo e' a diferenca entre parecer
+     travado e parecer vivo.
+
+     `pointer-events:none` e' obrigatorio: sem isso a propria onda vira o alvo
+     do clique e o link nao abre. ]]*/
+.btn,a.produto,details summary{position:relative;overflow:hidden}
+.onda{
+  position:absolute;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,255,255,.5),rgba(255,255,255,0) 65%);
+  transform:scale(0);opacity:.65;animation:ondaAbre .55s ease-out forwards;
+}
+.btn-forte .onda{background:radial-gradient(circle,rgba(0,40,30,.45),rgba(0,40,30,0) 65%)}
+@keyframes ondaAbre{ to{transform:scale(1);opacity:0} }
+
+/* O afundar no clique. Vale mais que qualquer hover: hover nao existe em
+   celular, e e' no celular que a maioria vai abrir isto. */
+.btn:active{transform:translateY(1px) scale(.985)}
+a.produto:active{transform:translateY(-1px) scale(.995)}
+details summary:active{opacity:.8}
+
+/* O link do topo ganha um risco que cresce do meio pra fora. */
+.topo nav a{position:relative;padding-bottom:3px}
+.topo nav a::after{
+  content:"";position:absolute;left:50%;right:50%;bottom:0;height:2px;
+  background:var(--acento);border-radius:2px;
+  transition:left .22s ease,right .22s ease;
+}
+.topo nav a:hover::after,.topo nav a[aria-current="page"]::after{left:0;right:0}
+
+/* A resposta da duvida desliza em vez de aparecer de estalo. */
+details[open] p{animation:abreResposta .3s ease}
+@keyframes abreResposta{ from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:none} }
+
 /*[[ Quem pediu menos animacao no sistema recebe menos animacao. O brilho
-     fica: ele e' cor, nao movimento. ]]*/
+     fica: ele e' cor, nao movimento — e a cor e' o que carrega a marca.
+
+     `.surge` volta a ser visivel aqui tambem, e nao so' no JS: se o script
+     falhar em carregar, o `opacity:0` deixaria a pagina em branco. Duas
+     travas independentes pro mesmo risco. ]]*/
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .btn:hover,a.produto:hover{transform:none}
-  *{transition-duration:.01ms !important}
+  .btn:hover,a.produto:hover,.btn:active,a.produto:active{transform:none}
+  .surge{opacity:1;transform:none}
+  .onda{display:none}
+  details[open] p{animation:none}
+  *{transition-duration:.01ms !important;animation-duration:.01ms !important}
 }
+
+/*[[ TRAVA CONTRA PAGINA EM BRANCO.
+     Se o JavaScript nao rodar — bloqueado, erro, navegador velho — ninguem
+     poe `.visivel` e o site inteiro fica invisivel. Com <noscript> no HTML a
+     regra so' vale quando o script esta desligado, mas erro de script nao
+     aciona <noscript>. Entao a garantia real e' esta: a animacao so' e'
+     armada pelo proprio JS, adicionando `js` na raiz. Sem JS, sem
+     `opacity:0`. ]]*/
+html:not(.js) .surge{opacity:1;transform:none}
