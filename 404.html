@@ -22,6 +22,31 @@
      visse aquilo concluiria que o site inteiro quebrou. ]]-->
 <link rel="stylesheet" href="/estilo.css" />
 <script>document.documentElement.className += ' js';</script>
+
+<!--[[ AVISA QUE ALGUÉM CAIU AQUI — e este é o aviso mais acionável do site.
+
+     Link quebrado quase nunca é o visitante que errou: é endereço digitado
+     errado numa bio, num vídeo, numa mensagem. Ou seja, é erro nosso, custa
+     caro (a pessoa veio e não chegou) e hoje só se descobre por acaso.
+
+     O caminho vai junto no `p`, porque saber que houve um link quebrado não
+     conserta nada — saber QUAL conserta.
+
+     Não conta como visita: `ev` faz o serviço somar num balde separado. Quem
+     caiu numa página que não existe não visitou o site, e misturar os dois
+     inflaria o número que serve pra medir a divulgação.
+
+     NÃO PODE QUEBRAR A PÁGINA, e esta página menos ainda que as outras: ela
+     aparece justamente quando já tem algo errado. Por isso o try/catch e por
+     isso é inline — a regra desta página é não depender de arquivo nenhum. ]]-->
+<script>
+try {
+  navigator.sendBeacon(
+    'https://aura-contador.cosmopanel84.deno.net/visita',
+    JSON.stringify({ p: location.pathname, ref: document.referrer, ev: '404' })
+  );
+} catch (e) { /* sem aviso; a pagina de erro continua fazendo o trabalho dela */ }
+</script>
 </head>
 <body>
 

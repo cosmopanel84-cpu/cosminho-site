@@ -21,13 +21,33 @@
 <!-- Contagem de visita, anonima. Inline de proposito — a explicacao inteira
      esta no index.html. -->
 <script>
+var _CONTA = 'https://aura-contador.cosmopanel84.deno.net/visita';
+var _de = '';
 try {
-  var _de = new URLSearchParams(location.search).get('de') || '';
+  _de = new URLSearchParams(location.search).get('de') || '';
   navigator.sendBeacon(
-    'https://aura-contador.cosmopanel84.deno.net/visita',
+    _CONTA,
     JSON.stringify({ p: location.pathname, de: _de, ref: document.referrer })
   );
 } catch (e) { /* sem contagem hoje; a pagina segue igual */ }
+
+/* Hoje esta pagina nao tem botao de baixar — o listener esta' aqui pro dia em
+   que tiver. Instrumentar depois e' o que nunca acontece: o botao entra, e a
+   descoberta de que ele nao mede vem meses depois, sem os dados. Explicacao
+   inteira no index.html. */
+document.addEventListener('click', function (ev) {
+  try {
+    var alvo = ev.target;
+    if (!alvo) return;
+    if (!alvo.closest) alvo = alvo.parentElement;
+    var a = alvo && alvo.closest && alvo.closest('a[href*="CosmoPanel-Instalador"]');
+    if (!a) return;
+    navigator.sendBeacon(
+      _CONTA,
+      JSON.stringify({ p: location.pathname, de: _de, ref: document.referrer, ev: 'baixar' })
+    );
+  } catch (e) { /* medir nunca pode atrapalhar o download */ }
+}, true);
 </script>
 </head>
 <body>

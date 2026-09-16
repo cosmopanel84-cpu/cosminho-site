@@ -61,13 +61,47 @@
      mesmo instante, e nunca segura o carregamento. Dentro de try/catch porque
      medir não pode, em hipótese alguma, quebrar a página que está medindo. ]]-->
 <script>
+var _CONTA = 'https://aura-contador.cosmopanel84.deno.net/visita';
+var _de = '';
 try {
-  var _de = new URLSearchParams(location.search).get('de') || '';
+  _de = new URLSearchParams(location.search).get('de') || '';
   navigator.sendBeacon(
-    'https://aura-contador.cosmopanel84.deno.net/visita',
+    _CONTA,
     JSON.stringify({ p: location.pathname, de: _de, ref: document.referrer })
   );
 } catch (e) { /* sem contagem hoje; a pagina segue igual */ }
+
+//[[ O CLIQUE EM BAIXAR — o único que importa mais que a visita.
+//
+//   Abrir a página diz que a pessoa passou. Clicar em baixar diz que ela
+//   decidiu. Sem medir isto, a pergunta "quantos dos que entraram foram até o
+//   fim?" simplesmente não tem resposta, e ela é a que diz se a divulgação
+//   está trazendo gente certa ou só gente.
+//
+//   DELEGADO no documento, e não `onclick` no botão: o botão da conta.html é
+//   criado por JavaScript depois que a licença carrega, e o da página inicial
+//   é fixo. Um listener que pesca pelo href cobre os dois — e cobre o próximo,
+//   que ninguém vai lembrar de instrumentar.
+//
+//   Na fase de CAPTURA porque ela acontece antes de qualquer `preventDefault`
+//   ou `stopPropagation` que venha a existir aqui. `sendBeacon` foi feito pra
+//   exatamente isto: entrega mesmo com a navegação já começando.
+//
+//   Vive junto do contador, inline, pelo mesmo motivo que ele: arquivo
+//   separado é arquivo que um dia dá 404 e para de medir em silêncio. ]]
+document.addEventListener('click', function (ev) {
+  try {
+    var alvo = ev.target;
+    if (!alvo) return;
+    if (!alvo.closest) alvo = alvo.parentElement;
+    var a = alvo && alvo.closest && alvo.closest('a[href*="CosmoPanel-Instalador"]');
+    if (!a) return;
+    navigator.sendBeacon(
+      _CONTA,
+      JSON.stringify({ p: location.pathname, de: _de, ref: document.referrer, ev: 'baixar' })
+    );
+  } catch (e) { /* medir nunca pode atrapalhar o download */ }
+}, true);
 </script>
 </head>
 <body>

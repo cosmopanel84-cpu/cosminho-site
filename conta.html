@@ -17,13 +17,32 @@
      ja' comprou, entao a linha desta pagina e' o sinal de que gente esta'
      usando o que pagou — e nao so' visitando a loja. ]]-->
 <script>
+var _CONTA = 'https://aura-contador.cosmopanel84.deno.net/visita';
+var _de = '';
 try {
-  var _de = new URLSearchParams(location.search).get('de') || '';
+  _de = new URLSearchParams(location.search).get('de') || '';
   navigator.sendBeacon(
-    'https://aura-contador.cosmopanel84.deno.net/visita',
+    _CONTA,
     JSON.stringify({ p: location.pathname, de: _de, ref: document.referrer })
   );
 } catch (e) { /* sem contagem hoje; a pagina segue igual */ }
+
+/* O clique em baixar. Delegado no documento de proposito: aqui o botao nasce
+   do JavaScript depois que a licenca carrega, entao nao existe pra receber um
+   onclick nesta altura da pagina. A explicacao inteira esta' no index.html. */
+document.addEventListener('click', function (ev) {
+  try {
+    var alvo = ev.target;
+    if (!alvo) return;
+    if (!alvo.closest) alvo = alvo.parentElement;
+    var a = alvo && alvo.closest && alvo.closest('a[href*="CosmoPanel-Instalador"]');
+    if (!a) return;
+    navigator.sendBeacon(
+      _CONTA,
+      JSON.stringify({ p: location.pathname, de: _de, ref: document.referrer, ev: 'baixar' })
+    );
+  } catch (e) { /* medir nunca pode atrapalhar o download */ }
+}, true);
 </script>
 
 <style>
